@@ -1,0 +1,36 @@
+<div  class="row">
+    <form class="col-sm-12"  #formEditEmpresa="ngForm">
+        <div class="row">
+            <h3  class="colorVerde col-sm-12" style="text-align: center;">Editar Empresa</h3>
+
+            <div class="divider"></div>
+
+            <!-- Loader -->
+            <div  style="padding: 5px 0px;">
+                <mat-progress-bar mode="indeterminate" *ngIf="preloaderActivo"></mat-progress-bar>
+            </div>
+
+            <div mat-dialog-content class="col-sm-12">
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-12">
+                        <label for="nombre">Nombre:</label> 
+                        <input type="text" #nombre="ngModel" [(ngModel)]="data.empresa.nombre" name="nombre" id="nombre" required class="form-control" oninput="this.value = this.value.toUpperCase()">
+                    </div>
+                </div>
+            </div>  
+            
+            <div mat-dialog-actions class="col-sm-12">
+                <div class="col-sm-12" style="margin-bottom: 10px;">
+                    <button class="btn botonCafe" (click)="cerrarModal()" style="width: 100%;">Cancelar</button>
+                </div>
+    
+                <div class="col-sm-12">
+                    <input class="btn botonVerde" type="submit" style="width: 100%;" value="Guardar" [disabled]="!formEditEmpresa.form.valid || desactivado" (click)="putEmpresa()">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div >
+    
+    
