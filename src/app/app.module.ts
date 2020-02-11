@@ -50,6 +50,14 @@ import { AddEmpresaComponent } from './components/empresas/modals/add-empresa/ad
 import { EditEmpresaComponent } from './components/empresas/modals/edit-empresa/edit-empresa.component'; 
 import { HttpClientModule } from '@angular/common/http';
 import { AddProspectoComponent } from './components/prospectos/modals/add-prospecto/add-prospecto.component';
+import { ValidarProspectoComponent } from './components/prospectos/modals/validar-prospecto/validar-prospecto.component';
+import { NormasComponent } from './components/normas/normas.component';
+import { TipoServicioComponent } from './components/tipo-servicio/tipo-servicio.component';
+import { CostosComponent } from './components/costos/costos.component';
+import { AddNormaComponent } from './components/normas/modals/add-norma/add-norma.component';
+import { AddTipoServicioComponent } from './components/tipo-servicio/modals/add-tipo-servicio/add-tipo-servicio.component';
+import { AddCostoComponent } from './components/costos/modals/add-costo/add-costo.component';
+import { AddCotizacionComponent } from './components/cotizacion/modals/add-cotizacion/add-cotizacion.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +66,15 @@ import { AddProspectoComponent } from './components/prospectos/modals/add-prospe
     ProspectosComponent,
     AddEmpresaComponent,
     EditEmpresaComponent,
-    AddProspectoComponent
+    AddProspectoComponent,
+    ValidarProspectoComponent,
+    NormasComponent,
+    TipoServicioComponent,
+    CostosComponent,
+    AddNormaComponent,
+    AddTipoServicioComponent,
+    AddCostoComponent,
+    AddCotizacionComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +125,9 @@ import { AddProspectoComponent } from './components/prospectos/modals/add-prospe
   ],
   providers: [],
   entryComponents: [
-    AddEmpresaComponent, EditEmpresaComponent, AddProspectoComponent
+    AddEmpresaComponent, EditEmpresaComponent, AddProspectoComponent,
+    ValidarProspectoComponent, AddNormaComponent, AddTipoServicioComponent, AddCostoComponent,
+    AddCotizacionComponent
   ],
   bootstrap: [AppComponent]
 })

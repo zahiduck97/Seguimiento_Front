@@ -14,8 +14,8 @@ export class ProspectosService {
     return this.http.get(environment.Url_Service + 'Prospectos/');
   }
 
-  put(data){
-    return this.http.put(environment.Url_Service + 'Prospectos/'+data.id, data);
+  put(data, id){
+    return this.http.put(environment.Url_Service + 'Prospectos/' + id, data);
   }
 
   post(data){

@@ -1,0 +1,31 @@
+<div class="row">
+    <form class="col-md-12" #formAddEmpresa="ngForm">
+
+        <h3 class="colorVerde col-md-12" style="text-align: center;">Agregar Norma</h3>
+
+        <div class="divider"></div>
+
+        <!-- Loader -->
+        <div style="padding: 5px 0px;">
+            <mat-progress-bar mode="indeterminate" *ngIf="preloaderActivo"></mat-progress-bar>
+        </div>
+
+        <div mat-dialog-content class="col-sm-12">
+            <div class="form-group col-sm-12">
+                <label for="codificacion">Codificacion:</label>
+                <input type="text" #codificacion="ngModel" [(ngModel)]="norma.codificacion" name="codificacion" id="codificacion" required oninput="this.value = this.value.toUpperCase()" class="form-control">
+            </div>
+        </div>
+
+        <div mat-dialog-actions class="col-sm-12">
+            <div class="col-sm-12" style="margin-bottom: 10px;">
+                <button class="btn botonCafe waves-effect" (click)="cerrarModal()" style="width: 100%;">Cancelar</button>
+            </div>
+
+            <div class="col-sm-12">
+                <input class="btn botonVerde" type="submit" style="width: 100%;" value="Guardar" [disabled]="!formAddEmpresa.form.valid || desactivado" (click)="guardar()">
+            </div>
+        </div>
+
+    </form>
+</div>

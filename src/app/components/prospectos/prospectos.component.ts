@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from "sweetalert2";
 import { AddProspectoComponent } from './modals/add-prospecto/add-prospecto.component';
+import { ValidarProspectoComponent } from './modals/validar-prospecto/validar-prospecto.component';
 
 @Component({
   selector: 'app-prospectos',
@@ -17,17 +18,18 @@ export class ProspectosComponent implements OnInit {
   public prospectos : any = [];
   public preloaderActivo = false;
   public desactivado = false;
-// Table
-public displayedColumns: string[] = ['empresa', 'nombre', 'telefono', 'fecha', 'acciones'];
-public dataSource = new MatTableDataSource();
 
-@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-constructor(
-  public prospectosServices: ProspectosService,
-  private router: Router,
-  public dialog: MatDialog
-  ) { }
+    // Table
+  public displayedColumns: string[] = ['empresa', 'nombre', 'telefono', 'fecha', 'acciones'];
+  public dataSource = new MatTableDataSource();
+  
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  
+  constructor(
+    public prospectosServices: ProspectosService,
+    private router: Router,
+    public dialog: MatDialog
+    ) { }
 
 
   // Al iniciar
@@ -84,6 +86,17 @@ constructor(
     await dialogRef.afterClosed().subscribe(result => {    
       this.conectarServidor();
     }); 
+  }
+
+  async validar(id){
+    const dialogRef = this.dialog.open(ValidarProspectoComponent, {
+      width: '700px',
+      data: {id}
+    });
+
+    await dialogRef.afterClosed().subscribe(res => {
+      this.conectarServidor();
+    })
   }
 
 }

@@ -1,26 +1,34 @@
-html, body { 
-    height: 100%; 
-    background-color:#ccc !important ;
-
+html,
+body {
+    height: 100%;
+    background-color: #ccc !important;
 }
-body { margin: 0; font-family: 'Roboto', sans-serif; font-size: 20px; }
+
+input[type=submit] {
+    color: white;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
 
 .card {
     border-radius: 10px;
 }
 
-input[type=text]{
-    text-transform:uppercase;
+input[type=text] {
+    text-transform: uppercase;
 }
 
-a{
+a {
     cursor: pointer;
 }
 
-.btn{
-    margin:5px;
+.btn {
+    margin: 5px;
 }
-
 
 thead tr {
     background: #2ab7ca;
@@ -28,84 +36,85 @@ thead tr {
     font-weight: bold !important;
 }
 
-.botonAzul{
+.botonAzul {
     background-color: #2ab7ca !important;
 }
 
-.botonRojo{
+.botonRojo {
     background-color: #fe4a49 !important;
 }
 
-.botonAmarillo{
+.botonAmarillo {
     background-color: #fed766 !important;
 }
 
-.botonCafe{
+.botonCafe {
     background-color: #41393E !important;
 }
 
-.botonVerde{
+.botonVerde {
     background-color: #2CB220 !important;
 }
 
-.botonGrisFuerte{
+.botonGrisFuerte {
     background-color: #4d4d4d !important;
 }
 
-.botonBlanco{
+.botonBlanco {
     background-color: white !important;
 }
 
-.colorGrisFuerte{
+.colorGrisFuerte {
     background-color: #4d4d4d !important;
 }
 
-.colorAzul{
+.colorAzul {
     color: #2ab7ca !important;
 }
 
-.colorRojo{
+.colorRojo {
     color: #fe4a49 !important;
 }
 
-.colorAmarillo{
+.colorAmarillo {
     color: #fed766 !important;
 }
 
-.colorCafe{
+.colorCafe {
     color: #41393E !important;
 }
 
-.colorVerde{
+.colorVerde {
     color: #2CB220 !important;
 }
 
-.colorBlanco{
+.colorBlanco {
     color: white !important;
 }
 
-a.btn-floating i.material-icons{
+a.btn-floating i.material-icons {
     color: #41393E;
 }
 
-strong{
+strong {
     font-weight: bold;
 }
 
-i{
+i {
     padding: 0 5px;
     cursor: pointer;
 }
 
 table {
     width: 100%;
-  }
-  
-  .mat-form-field {
+}
+
+.mat-form-field {
     font-size: 14px;
     width: 100%;
-  }
-  
-  td, th {
+}
+
+td,
+th {
     text-align: center;
-  }
+}
