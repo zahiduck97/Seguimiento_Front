@@ -85,22 +85,6 @@ export class EmpresasComponent implements OnInit {
     }
   }
 
-  // // Modal de informacion
-  // async informacionEmpresa(empresa){
-  //   if(this.desactivado)
-  //     return false;
-
-  //   const dialogRef = this.dialog.open(InformacionEmpresaComponent,{
-  //     data: { empresa },
-  //     width: '700px'
-
-  //   });
-
-  //   await dialogRef.afterClosed().subscribe(result => {
-  //       this.conectarServidor();
-  //   })
-  // }
-
    // Delete a empresa
   async deleteEmpresa(empresa){
     if(this.desactivado)

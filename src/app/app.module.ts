@@ -49,6 +49,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { AddEmpresaComponent } from './components/empresas/modals/add-empresa/add-empresa.component';
 import { EditEmpresaComponent } from './components/empresas/modals/edit-empresa/edit-empresa.component'; 
 import { HttpClientModule } from '@angular/common/http';
+import { AddProspectoComponent } from './components/prospectos/modals/add-prospecto/add-prospecto.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { HttpClientModule } from '@angular/common/http';
     EmpresasComponent,
     ProspectosComponent,
     AddEmpresaComponent,
-    EditEmpresaComponent
+    EditEmpresaComponent,
+    AddProspectoComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +109,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [],
   entryComponents: [
-    AddEmpresaComponent, EditEmpresaComponent
+    AddEmpresaComponent, EditEmpresaComponent, AddProspectoComponent
   ],
   bootstrap: [AppComponent]
 })
