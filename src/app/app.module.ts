@@ -58,6 +58,12 @@ import { AddNormaComponent } from './components/normas/modals/add-norma/add-norm
 import { AddTipoServicioComponent } from './components/tipo-servicio/modals/add-tipo-servicio/add-tipo-servicio.component';
 import { AddCostoComponent } from './components/costos/modals/add-costo/add-costo.component';
 import { AddCotizacionComponent } from './components/cotizacion/modals/add-cotizacion/add-cotizacion.component';
+import { ServiciosComponent } from './components/servicios/servicios.component';
+import { AddServicioComponent } from './components/servicios/modals/add-servicio/add-servicio.component';
+import { ValidarUnoComponent } from './components/servicios/modals/validar-uno/validar-uno.component';
+import { ValidarDosComponent } from './components/servicios/modals/validar-dos/validar-dos.component';
+import { ValidarTresComponent } from './components/servicios/modals/validar-tres/validar-tres.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +80,13 @@ import { AddCotizacionComponent } from './components/cotizacion/modals/add-cotiz
     AddNormaComponent,
     AddTipoServicioComponent,
     AddCostoComponent,
-    AddCotizacionComponent
+    AddCotizacionComponent,
+    ServiciosComponent,
+    AddServicioComponent,
+    ValidarUnoComponent,
+    ValidarDosComponent,
+    ValidarTresComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -127,7 +139,8 @@ import { AddCotizacionComponent } from './components/cotizacion/modals/add-cotiz
   entryComponents: [
     AddEmpresaComponent, EditEmpresaComponent, AddProspectoComponent,
     ValidarProspectoComponent, AddNormaComponent, AddTipoServicioComponent, AddCostoComponent,
-    AddCotizacionComponent
+    AddCotizacionComponent, AddServicioComponent, ValidarUnoComponent, ValidarDosComponent,
+    ValidarTresComponent
   ],
   bootstrap: [AppComponent]
 })
