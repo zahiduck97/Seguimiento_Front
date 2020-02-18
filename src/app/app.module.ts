@@ -64,6 +64,10 @@ import { ValidarUnoComponent } from './components/servicios/modals/validar-uno/v
 import { ValidarDosComponent } from './components/servicios/modals/validar-dos/validar-dos.component';
 import { ValidarTresComponent } from './components/servicios/modals/validar-tres/validar-tres.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginComponent } from './components/login/login.component';
+import { IndexComponent } from './components/index/index.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { AddUsuarioComponent } from './components/usuarios/modals/add-usuario/add-usuario.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +90,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ValidarUnoComponent,
     ValidarDosComponent,
     ValidarTresComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent,
+    IndexComponent,
+    UsuariosComponent,
+    AddUsuarioComponent
   ],
   imports: [
     BrowserModule,
@@ -140,7 +148,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AddEmpresaComponent, EditEmpresaComponent, AddProspectoComponent,
     ValidarProspectoComponent, AddNormaComponent, AddTipoServicioComponent, AddCostoComponent,
     AddCotizacionComponent, AddServicioComponent, ValidarUnoComponent, ValidarDosComponent,
-    ValidarTresComponent
+    ValidarTresComponent, AddUsuarioComponent
   ],
   bootstrap: [AppComponent]
 })

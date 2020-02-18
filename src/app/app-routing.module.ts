@@ -6,6 +6,9 @@ import { NormasComponent } from './components/normas/normas.component';
 import { TipoServicioComponent } from './components/tipo-servicio/tipo-servicio.component';
 import { CostosComponent } from './components/costos/costos.component';
 import { ServiciosComponent } from './components/servicios/servicios.component';
+import { LoginComponent } from './components/login/login.component';
+import { IndexComponent } from './components/index/index.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 
 const routes: Routes = [
@@ -15,6 +18,9 @@ const routes: Routes = [
   { path: 'tipo-servicio', component: TipoServicioComponent },
   { path: 'costos', component: CostosComponent },
   { path: 'servicios', component: ServiciosComponent },
+  { path: '', component: LoginComponent },
+  { path: 'index', component: IndexComponent },
+  { path: 'usuarios', component: UsuariosComponent },
 ];
 
 @NgModule({
