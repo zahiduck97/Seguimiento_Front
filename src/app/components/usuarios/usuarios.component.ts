@@ -30,7 +30,7 @@ export class UsuariosComponent implements OnInit {
 
   // To Init
   ngOnInit() {
-    // this.conectarServidor();
+    this.conectarServidor();
     this.dataSource.paginator = this.paginator;
   }
 
@@ -56,10 +56,11 @@ export class UsuariosComponent implements OnInit {
           console.log(this.usuarios);
           this.preloaderActivo = false;
           this.desactivado = false;
+          this.dataSource.data = this.usuarios;
         },
         err => {
           console.log(err);
-          if(err.status == 0){ 
+          if (err.status === 0) {
             Swal.fire({
               icon: 'error',
               title: 'Error',
@@ -79,7 +80,7 @@ export class UsuariosComponent implements OnInit {
   }   
   
   // Agregar Un Usuario Tramitdor
-  async addUsuario(){
+  async addUsuario() {
     const dialogRef = this.dialog.open(AddUsuarioComponent, {
       width: '700px'
     });
@@ -88,7 +89,7 @@ export class UsuariosComponent implements OnInit {
       if(res){
         this.conectarServidor();
       }
-    })
+    });
   }
   
 

@@ -69,6 +69,10 @@ import { IndexComponent } from './components/index/index.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { AddUsuarioComponent } from './components/usuarios/modals/add-usuario/add-usuario.component';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -142,6 +146,7 @@ import { AddUsuarioComponent } from './components/usuarios/modals/add-usuario/ad
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [],
   entryComponents: [

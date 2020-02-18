@@ -35,31 +35,23 @@
         <!-- ID Column -->
         <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;">  Usuario </th>
-            <td mat-cell *matCellDef="let row">
-                
-                <!-- <span *ngIf="row.nombre_Tramitador; else nombre_Empleado"> {{row.nombre_Tramitador}}  </span>
-                <ng-template #nombre_Empleado>
-                    <span > {{row.nombre_Empleado}}  </span>
-                </ng-template> -->
-            </td>
+            <td mat-cell *matCellDef="let row"> {{ row.nombre }} </td>
         </ng-container>
     
         <!-- Progress Column -->
         <ng-container matColumnDef="username">
         <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Username </th>
-        <td mat-cell *matCellDef="let row"> 
-                <!-- {{row.userEmail}}  -->
-        </td>
+        <td mat-cell *matCellDef="let row"> {{  row.username  }} </td>
         </ng-container>
     
         <!-- Name Column -->
         <ng-container matColumnDef="rol">
             <th mat-header-cell *matHeaderCellDef class="botonAzul text-white text-center" style="font-size: 20px;"> Rol </th>
             <td mat-cell *matCellDef="let row">
-                <!-- <span *ngIf="row.rol == 'T'; else rolEmpleado"> Tramitador  </span>
-                <ng-template #rolEmpleado>
-                    <span > Empleado  </span>
-                </ng-template> -->
+                <span *ngIf="row.rol == '1'; else rolAdmi"> Usuario  </span>
+                <ng-template #rolAdmi>
+                    <span > Administrador  </span>
+                </ng-template>
             </td>
         </ng-container>
     
