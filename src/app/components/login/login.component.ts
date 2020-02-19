@@ -18,7 +18,7 @@ export class LoginComponent  {
   public preloaderActivo = false;
   public desactivado = false;
 
-  constructor(private loginServices: LoginService, private router: Router) { }
+  constructor(private loginServices: LoginService, private router: Router, private loginService: LoginService) { }
 
   async login() {
     console.log(this.usuario)
@@ -28,6 +28,7 @@ export class LoginComponent  {
       .then( res => {
           sessionStorage.setItem('id', res.id.toString());
           sessionStorage.setItem('rol', res.rol.toString());
+          this.loginService.putStatusNavbar(true, res.rol);
           Swal.fire({
             title: 'Bienvenido de nuevo',
             confirmButtonText: 'Seguir'
@@ -41,6 +42,7 @@ export class LoginComponent  {
           title: 'Hubo un error',
           text: e.error.mensaje
         });
+        this.loginService.putStatusNavbar(false, 0);
       }).finally(() => {
         this.preloaderActivo = false;
         this.desactivado = false;

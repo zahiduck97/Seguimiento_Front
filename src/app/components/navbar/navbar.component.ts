@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
-import {LoginService} from '../../services/login.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,13 +10,17 @@ import {LoginService} from '../../services/login.service';
 })
 export class NavbarComponent implements OnInit {
 
+  public showNavbar = false;
+  public rol = 0
+
   constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
-    this.loginService.getMessage().subscribe(msg => {
-      console.log(msg);
+    this.loginService.getStatusNavbar().subscribe(data => {
+      this.showNavbar = data.status;
+      this.rol = data.rol;
+      console.log(data)
     })
-    this.loginService.sendMessage('que paso pro');
   }
 
   logOut(){
@@ -30,12 +34,13 @@ export class NavbarComponent implements OnInit {
       cancelButtonText: 'No, todavia no'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Cerraste tu sesion',
-          'success'
-        );
+        Swal.fire({
+          title: 'Cerraste tu sesion',
+          icon: 'success'
+        });
         sessionStorage.removeItem('id');
         sessionStorage.removeItem('rol');
+        this.loginService.putStatusNavbar(false, 0);
         this.router.navigate(['/']);
       }
     });

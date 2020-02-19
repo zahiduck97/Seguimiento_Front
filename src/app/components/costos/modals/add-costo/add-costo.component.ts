@@ -4,6 +4,7 @@ import { TipoServicioService } from '../../../../services/tipo-servicio.service'
 import Swal from 'sweetalert2';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CostosService } from '../../../../services/costos.service';
+import { MovimientosService } from 'src/app/services/movimientos.service';
 
 @Component({
   selector: 'app-add-costo',
@@ -27,7 +28,8 @@ export class AddCostoComponent implements OnInit {
     public normasService: NormasService,
     public tipoServicioService: TipoServicioService,
     public dialogRef: MatDialogRef<AddCostoComponent>,
-    public costosService: CostosService
+    public costosService: CostosService,
+    public movimientosService: MovimientosService
   ) { }
 
   ngOnInit() {
@@ -90,11 +92,19 @@ export class AddCostoComponent implements OnInit {
     console.log(this.costo);
     await this.costosService.post(this.costo)
       .subscribe(res => {
-        Swal.fire({ 
-          icon: 'success',
-          title: 'Se inserto el costo'
+        console.log(res);
+        let movimiento = {
+          idUsuario: sessionStorage.id,
+          tipo: 1,
+          descripcion: `Se creo un costo para la norma:  ${res['codificacion']} y el tipo de servicio: ${res['nombre']}`
+        }
+        this.movimientosService.post(movimiento).subscribe(() => {
+          Swal.fire({ 
+            icon: 'success',
+            title: 'Se inserto el costo'
+          })
+          this.dialogRef.close('ok');
         })
-        this.dialogRef.close('ok');
       }, 
       e => {
         if(!e.error.mensaje)

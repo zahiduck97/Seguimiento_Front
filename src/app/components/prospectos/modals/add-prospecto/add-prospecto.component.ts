@@ -3,6 +3,7 @@ import { EmpresasService } from 'src/app/services/empresas.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import Swal from "sweetalert2";
 import { ProspectosService } from 'src/app/services/prospectos.service';
+import { MovimientosService } from 'src/app/services/movimientos.service';
 
 @Component({
   selector: 'app-add-prospecto',
@@ -27,7 +28,8 @@ export class AddProspectoComponent implements OnInit {
   constructor(
     public empresasService: EmpresasService,
     public dialogRef: MatDialogRef<AddProspectoComponent>,
-    public prospectosService: ProspectosService
+    public prospectosService: ProspectosService,
+    public movimientosService: MovimientosService
     ) { }
   
 
@@ -71,11 +73,18 @@ export class AddProspectoComponent implements OnInit {
     console.log(this.prospecto);
     await this.prospectosService.post(this.prospecto)
       .subscribe(res => {
-        Swal.fire({ 
-          icon: 'success',
-          title: 'Se inserto el prospecto'
+        let movimiento = {
+          idUsuario: sessionStorage.id,
+          tipo: 1,
+          descripcion: `Se creo el prospecto:  ${this.prospecto.nombre}`
+        }
+        this.movimientosService.post(movimiento).subscribe(() => {
+          Swal.fire({ 
+            icon: 'success',
+            title: 'Se inserto el prospecto'
+          })
+          this.dialogRef.close('ok');
         })
-        this.dialogRef.close('ok');
       }, 
       e => {
         if(!e.error.mensaje)

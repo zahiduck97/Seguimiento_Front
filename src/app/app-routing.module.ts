@@ -9,6 +9,7 @@ import { ServiciosComponent } from './components/servicios/servicios.component';
 import { LoginComponent } from './components/login/login.component';
 import { IndexComponent } from './components/index/index.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { MovimientosComponent } from './components/movimientos/movimientos.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'index', component: IndexComponent },
   { path: 'usuarios', component: UsuariosComponent },
+  { path: 'movimientos', component: MovimientosComponent },
 ];
 
 @NgModule({

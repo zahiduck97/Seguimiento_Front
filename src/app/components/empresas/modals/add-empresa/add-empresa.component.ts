@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from "sweetalert2";
 import { EmpresasService } from 'src/app/services/empresas.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MovimientosService } from 'src/app/services/movimientos.service';
 
 @Component({
   selector: 'app-add-empresa',
@@ -19,7 +20,8 @@ export class AddEmpresaComponent {
   
   constructor(
     public empresasService: EmpresasService,
-    public dialogRef: MatDialogRef<AddEmpresaComponent>
+    public dialogRef: MatDialogRef<AddEmpresaComponent>,
+    public movimientosService: MovimientosService
     ) { }
 
 
@@ -30,11 +32,18 @@ export class AddEmpresaComponent {
     await this.empresasService.post(this.empresa).toPromise()
       .then(
         empresaDb => {
-          Swal.fire({ 
-            icon: 'success',
-            title: 'Se inserto la empresa'
+          let movimiento = {
+            idUsuario: sessionStorage.id,
+            tipo: 1,
+            descripcion: `Se creo la empresa:  ${this.empresa.nombre}`
+          }
+          this.movimientosService.post(movimiento).subscribe(() => {
+            Swal.fire({ 
+              icon: 'success',
+              title: 'Se inserto la empresa'
+            })
+            this.dialogRef.close(empresaDb);
           })
-          this.dialogRef.close(empresaDb);
         }
       )
       .catch(e => {

@@ -4,7 +4,27 @@
 
 export const environment = {
   production: false,
-  Url_Service: 'http://localhost:3000/api/'
+  Url_Service: 'http://localhost:3000/api/',
+  permisos_Usuario: {
+    normas: false,
+    tipo_servicio: false,
+    costos: false,
+    empresas: true,
+    prospectos: true,
+    servicios: true,
+    usuarios: true,
+    movimientos: false
+  },
+  permisos_Admi: {
+    normas: true,
+    tipo_servicio: true,
+    costos: true,
+    empresas: true,
+    prospectos: true,
+    servicios: true,
+    usuarios: true,
+    movimientos: false
+  }
 };
 
 /*

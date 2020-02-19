@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NormasService } from '../../../../services/normas.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import Swal from "sweetalert2";
+import { MovimientosService } from 'src/app/services/movimientos.service';
 
 @Component({
   selector: 'app-add-norma',
@@ -19,7 +20,8 @@ export class AddNormaComponent {
   
   constructor(
     public normasService: NormasService,
-    public dialogRef: MatDialogRef<AddNormaComponent>
+    public dialogRef: MatDialogRef<AddNormaComponent>,
+    public movimientosService: MovimientosService
     ) { }
 
 
@@ -30,11 +32,18 @@ export class AddNormaComponent {
     await this.normasService.post(this.norma).toPromise()
       .then(
         empresaDb => {
-          Swal.fire({ 
-            icon: 'success',
-            title: 'Se inserto la norma'
+          let movimiento = {
+            idUsuario: sessionStorage.id,
+            tipo: 1,
+            descripcion: `Se creo la Norma:  ${this.norma.codificacion}`
+          }
+          this.movimientosService.post(movimiento).subscribe(() => {
+            Swal.fire({ 
+              icon: 'success',
+              title: 'Se inserto la norma'
+            })
+            this.dialogRef.close(empresaDb);
           })
-          this.dialogRef.close(empresaDb);
         }
       )
       .catch(e => {

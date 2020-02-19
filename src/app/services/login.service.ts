@@ -17,13 +17,14 @@ export class LoginService {
     return this.http.put<RespuestaUser>(environment.Url_Service + 'Login/checkUser', data);
   }
 
-  sendMessage(msg: string){
-    this.socket.emit('ferret', msg);
+  // Sockets
+  putStatusNavbar(status: boolean, rol: number){
+    this.socket.emit('navbarStatus', { status, rol });
   }
 
-  getMessage() {
+  getStatusNavbar() {
     return this.socket
-      .fromEvent<any>('msg').pipe(map(data => data.hello));
+      .fromEvent<any>('navbarStatus').pipe(map(data => data));
   }
 }
 

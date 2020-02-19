@@ -70,6 +70,7 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { AddUsuarioComponent } from './components/usuarios/modals/add-usuario/add-usuario.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { MovimientosComponent } from './components/movimientos/movimientos.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -98,7 +99,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     LoginComponent,
     IndexComponent,
     UsuariosComponent,
-    AddUsuarioComponent
+    AddUsuarioComponent,
+    MovimientosComponent
   ],
   imports: [
     BrowserModule,
