@@ -6,6 +6,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUsuarioComponent } from './modals/add-usuario/add-usuario.component';
 import Swal from "sweetalert2"
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuarios',
@@ -26,7 +28,11 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   // Constructor
-  constructor(private usuariosService: UsuariosService, public dialog: MatDialog) { }
+  constructor(
+    private usuariosService: UsuariosService, 
+    public dialog: MatDialog,
+    public router: Router
+    ) { this.validarUsuario(); }
 
   // To Init
   ngOnInit() {
@@ -191,4 +197,26 @@ export class UsuariosComponent implements OnInit {
   //     })
   // }
 
+  // Tine prmisos o esta autenticado
+  validarUsuario(){
+    let id = sessionStorage.id;
+    if(!id){
+      this.router.navigate(['/']);
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes iniciar sesion primero',
+        icon: 'warning'
+      });
+    } else {
+      let rol = parseInt(sessionStorage.rol);
+      if(environment.permisos_Usuarios[rol].usuarios == false){
+        this.router.navigate(['/index']);
+        Swal.fire({
+          title: 'Error',
+          text: 'No tienes los permisos necesarios',
+          icon: 'warning'
+        });
+      }
+    }
+  }
 }

@@ -6,6 +6,7 @@ import { TipoServicioService } from '../../services/tipo-servicio.service';
 import { Router } from '@angular/router';
 import { AddTipoServicioComponent } from './modals/add-tipo-servicio/add-tipo-servicio.component';
 import { MatDialog } from '@angular/material/dialog';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tipo-servicio',
@@ -28,7 +29,7 @@ export class TipoServicioComponent implements OnInit {
     public tipoServicioService: TipoServicioService,
     private router: Router,
     public dialog: MatDialog
-    ) { }
+    ) { this.validarUsuario() }
 
 
   // Al iniciar
@@ -81,6 +82,29 @@ export class TipoServicioComponent implements OnInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  // Tine prmisos o esta autenticado
+  validarUsuario(){
+    let id = sessionStorage.id;
+    if(!id){
+      this.router.navigate(['/']);
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes iniciar sesion primero',
+        icon: 'warning'
+      });
+    } else {
+      let rol = parseInt(sessionStorage.rol);
+      if(environment.permisos_Usuarios[rol].tipo_servicio == false){
+        this.router.navigate(['/index']);
+        Swal.fire({
+          title: 'Error',
+          text: 'No tienes los permisos necesarios',
+          icon: 'warning'
+        });
+      }
     }
   }
 }

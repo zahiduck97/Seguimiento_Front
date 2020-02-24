@@ -9,6 +9,7 @@ import { AddServicioComponent } from './modals/add-servicio/add-servicio.compone
 import { ValidarUnoComponent } from './modals/validar-uno/validar-uno.component';
 import { ValidarDosComponent } from './modals/validar-dos/validar-dos.component';
 import { ValidarTresComponent } from './modals/validar-tres/validar-tres.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-servicios',
@@ -32,7 +33,7 @@ export class ServiciosComponent implements OnInit {
     public serviciosService: ServiciosService,
     private router: Router,
     public dialog: MatDialog
-    ) { }
+    ) { this.validarUsuario(); }
 
 
   // Al iniciar
@@ -122,5 +123,28 @@ export class ServiciosComponent implements OnInit {
     await dialogRef.afterClosed().subscribe(result => {    
       this.conectarServidor();
     }); 
+  }
+
+  // Tine prmisos o esta autenticado
+  validarUsuario(){
+    let id = sessionStorage.id;
+    if(!id){
+      this.router.navigate(['/']);
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes iniciar sesion primero',
+        icon: 'warning'
+      });
+    } else {
+      let rol = parseInt(sessionStorage.rol);
+      if(environment.permisos_Usuarios[rol].servicios == false){
+        this.router.navigate(['/index']);
+        Swal.fire({
+          title: 'Error',
+          text: 'No tienes los permisos necesarios',
+          icon: 'warning'
+        });
+      }
+    }
   }
 }

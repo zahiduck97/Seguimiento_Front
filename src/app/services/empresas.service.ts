@@ -27,6 +27,6 @@ export class EmpresasService {
   }
 
   delete(id){
-    return this.http.delete(environment.Url_Service + 'Empresas/'+id);
+    return this.http.put(environment.Url_Service + 'Empresas/activo/'+id, null);
   }
 }

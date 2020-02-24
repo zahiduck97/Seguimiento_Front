@@ -17,9 +17,14 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.getStatusNavbar().subscribe(data => {
-      this.showNavbar = data.status;
-      this.rol = data.rol;
-      console.log(data)
+      if(sessionStorage.getItem('id') && sessionStorage.rol){
+        this.showNavbar = true;
+        this.rol = parseInt(sessionStorage.rol);
+      } else {
+        this.showNavbar = data.status;
+        this.rol = data.rol;
+        console.log(data)
+      }
     })
   }
 

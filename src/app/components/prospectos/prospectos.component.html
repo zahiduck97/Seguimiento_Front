@@ -61,8 +61,12 @@
 
                         <!-- <i class="material-icons colorAzul" data-toggle="tooltip" data-placement="top" title="Editar Empresa" (click)="editEmpresa(row)" (click)="editEmpresa(row)">edit</i>
                     <i class="material-icons colorRojo" data-toggle="tooltip" data-placement="top" title="Borrar Empresa" (click)="deleteEmpresa(row.id)"  >delete</i> -->
-                        <i class="material-icons colorAzul" data-toggle="tooltip" data-placement="top" title="Validar" (click)="validar(row.id)">remove_red_eye</i>
+                            
+                        <i class="material-icons colorVerde" data-toggle="tooltip"   data-placement="top" title="Validado" *ngIf="row.acta === 1 && row.carta === 1 && row.contratos === 1 && row.rfc === 1; else noValidado" (click)="validado()">remove_red_eye</i>
 
+                        <ng-template #noValidado>
+                            <i class="material-icons colorAzul" data-toggle="tooltip" data-placement="top" title="Validar" (click)="validar(row)">remove_red_eye</i>
+                        </ng-template>
                     </td>
                 </ng-container>
 

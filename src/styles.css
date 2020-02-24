@@ -18,6 +18,11 @@ body {
     border-radius: 10px;
 }
 
+.card-title{
+    font-size: 30px;
+    text-align: center;
+}
+
 input[type=text] {
     text-transform: uppercase;
 }

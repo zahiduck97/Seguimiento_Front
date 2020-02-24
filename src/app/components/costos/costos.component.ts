@@ -6,6 +6,7 @@ import { CostosService } from '../../services/costos.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCostoComponent } from './modals/add-costo/add-costo.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-costos',
@@ -29,7 +30,7 @@ export class CostosComponent implements OnInit {
     public costosService: CostosService,
     private router: Router,
     public dialog: MatDialog
-    ) { }
+    ) { this.validarUsuario();}
 
 
   // Al iniciar
@@ -82,6 +83,29 @@ export class CostosComponent implements OnInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  // Tine prmisos o esta autenticado
+  validarUsuario(){
+    let id = sessionStorage.id;
+    if(!id){
+      this.router.navigate(['/']);
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes iniciar sesion primero',
+        icon: 'warning'
+      });
+    } else {
+      let rol = parseInt(sessionStorage.rol);
+      if(environment.permisos_Usuarios[rol].costos == false){
+        this.router.navigate(['/index']);
+        Swal.fire({
+          title: 'Error',
+          text: 'No tienes los permisos necesarios',
+          icon: 'warning'
+        });
+      }
     }
   }
 }

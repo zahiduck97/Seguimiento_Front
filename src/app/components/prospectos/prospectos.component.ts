@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from "sweetalert2";
 import { AddProspectoComponent } from './modals/add-prospecto/add-prospecto.component';
 import { ValidarProspectoComponent } from './modals/validar-prospecto/validar-prospecto.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-prospectos',
@@ -29,7 +30,7 @@ export class ProspectosComponent implements OnInit {
     public prospectosServices: ProspectosService,
     private router: Router,
     public dialog: MatDialog
-    ) { }
+    ) {this.validarUsuario() }
 
 
   // Al iniciar
@@ -88,15 +89,53 @@ export class ProspectosComponent implements OnInit {
     }); 
   }
 
-  async validar(id){
+  async validar(data){
     const dialogRef = this.dialog.open(ValidarProspectoComponent, {
       width: '700px',
-      data: {id}
+      data: {
+        id: data.id,
+        acta: data.acta,
+        contratos: data.contratos,
+        carta: data.carta,
+        rfc: data.rfc,
+        nombre: data.nombre
+      }
     });
 
     await dialogRef.afterClosed().subscribe(res => {
       this.conectarServidor();
     })
+  }
+
+  // Tine prmisos o esta autenticado
+  validarUsuario(){
+    let id = sessionStorage.id;
+    if(!id){
+      this.router.navigate(['/']);
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes iniciar sesion primero',
+        icon: 'warning'
+      });
+    } else {
+      let rol = parseInt(sessionStorage.rol);
+      if(environment.permisos_Usuarios[rol].prospectos == false){
+        this.router.navigate(['/index']);
+        Swal.fire({
+          title: 'Error',
+          text: 'No tienes los permisos necesarios',
+          icon: 'warning'
+        });
+      }
+    }
+  }
+
+  validado(){
+    Swal.fire({
+      title: 'Listo',
+      text: 'El prospecto ya tiene validado los siguientes documentos: Acta Constitutiva, Contrato Original UVA / OCP, RFC, y Carta Poder',
+      icon: 'success'
+    });
   }
 
 }

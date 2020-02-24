@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MovimientosService } from 'src/app/services/movimientos.service';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movimientos',
@@ -23,7 +25,8 @@ export class MovimientosComponent implements OnInit {
 
   constructor(
     public movimientosService: MovimientosService,
-    ) { }
+    public router: Router
+    ) { this.validarUsuario(); }
 
 
   // Al iniciar
@@ -68,6 +71,29 @@ export class MovimientosComponent implements OnInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  // Tine prmisos o esta autenticado
+  validarUsuario(){
+    let id = sessionStorage.id;
+    if(!id){
+      this.router.navigate(['/']);
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes iniciar sesion primero',
+        icon: 'warning'
+      });
+    } else {
+      let rol = parseInt(sessionStorage.rol);
+      if(environment.permisos_Usuarios[rol].movimientos == false){
+        this.router.navigate(['/index']);
+        Swal.fire({
+          title: 'Error',
+          text: 'No tienes los permisos necesarios',
+          icon: 'warning'
+        });
+      }
     }
   }
 

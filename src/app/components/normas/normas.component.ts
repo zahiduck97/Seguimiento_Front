@@ -29,29 +29,7 @@ export class NormasComponent implements OnInit {
     public normasService: NormasService,
     private router: Router,
     public dialog: MatDialog
-    ) { 
-      // let id = sessionStorage.id;
-      // if(!id){
-      //   this.router.navigate(['/']);
-      //   Swal.fire({
-      //     title: 'Error',
-      //     text: 'Debes iniciar sesion primero',
-      //     icon: 'warning'
-      //   });
-      // } else {
-      //   let rol = sessionStorage.rol
-      //   if(rol == 1){
-      //     if(environment.permisos_Usuario.normas == false){
-      //       this.router.navigate(['/index']);
-      //       Swal.fire({
-      //         title: 'Error',
-      //         text: 'No tienes los permisos necesarios',
-      //         icon: 'warning'
-      //       });
-      //     }
-      //   }
-      // }
-    }
+    ) { this.validarUsuario(); }
 
 
   // Al iniciar
@@ -104,6 +82,29 @@ export class NormasComponent implements OnInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  // Tine prmisos o esta autenticado
+  validarUsuario(){
+    let id = sessionStorage.id;
+    if(!id){
+      this.router.navigate(['/']);
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes iniciar sesion primero',
+        icon: 'warning'
+      });
+    } else {
+      let rol = parseInt(sessionStorage.rol);
+      if(environment.permisos_Usuarios[rol].normas == false){
+        this.router.navigate(['/index']);
+        Swal.fire({
+          title: 'Error',
+          text: 'No tienes los permisos necesarios',
+          icon: 'warning'
+        });
+      }
     }
   }
 }

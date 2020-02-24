@@ -10,7 +10,7 @@
                 <mat-progress-bar mode="indeterminate" *ngIf="preloaderActivo"></mat-progress-bar>
             </div>
 
-            <div mat-dialog-content class="col-sm-12">
+            <div mat-dialog-content class="col-sm-12 ">
                     <div class="form-group col-sm-12">
                         <label for="nombre">Nombre:</label>
                         <input type="text" #nombre="ngModel" [(ngModel)]="empresa.nombre" name="nombre" id="nombre" required oninput="this.value = this.value.toUpperCase()" class="form-control">

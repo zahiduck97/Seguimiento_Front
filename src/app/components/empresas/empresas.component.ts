@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from "sweetalert2";
 import { AddEmpresaComponent } from './modals/add-empresa/add-empresa.component';
 import { EditEmpresaComponent } from './modals/edit-empresa/edit-empresa.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-empresas',
@@ -29,7 +30,7 @@ export class EmpresasComponent implements OnInit {
     public empresasService: EmpresasService,
     private router: Router,
     public dialog: MatDialog
-    ) { }
+    ) { this.validarUsuario(); }
 
 
   // Al iniciar
@@ -146,5 +147,28 @@ export class EmpresasComponent implements OnInit {
     await dialogRef.afterClosed().subscribe(result => {
       this.conectarServidor();
     })
+  }
+
+  // Tine prmisos o esta autenticado
+  validarUsuario(){
+    let id = sessionStorage.id;
+    if(!id){
+      this.router.navigate(['/']);
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes iniciar sesion primero',
+        icon: 'warning'
+      });
+    } else {
+      let rol = parseInt(sessionStorage.rol);
+      if(environment.permisos_Usuarios[rol].empresas == false){
+        this.router.navigate(['/index']);
+        Swal.fire({
+          title: 'Error',
+          text: 'No tienes los permisos necesarios',
+          icon: 'warning'
+        });
+      }
+    }
   }
 }

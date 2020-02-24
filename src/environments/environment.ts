@@ -5,26 +5,52 @@
 export const environment = {
   production: false,
   Url_Service: 'http://localhost:3000/api/',
-  permisos_Usuario: {
-    normas: false,
-    tipo_servicio: false,
-    costos: false,
-    empresas: true,
-    prospectos: true,
-    servicios: true,
-    usuarios: true,
-    movimientos: false
-  },
-  permisos_Admi: {
-    normas: true,
-    tipo_servicio: true,
-    costos: true,
-    empresas: true,
-    prospectos: true,
-    servicios: true,
-    usuarios: true,
-    movimientos: false
-  }
+  permisos_Usuarios:[
+
+    // 0
+    {
+
+    },
+    
+    // Normal user like monica
+    // 1
+    {
+      normas: false,
+      tipo_servicio: false,
+      costos: false,
+      empresas: true,
+      prospectos: true,
+      servicios: true,
+      usuarios: true,
+      movimientos: false
+    },
+
+    // Admin user like liliana
+    // 2
+    {
+      normas: true,
+      tipo_servicio: true,
+      costos: true,
+      empresas: true,
+      prospectos: true,
+      servicios: true,
+      usuarios: true,
+      movimientos: false
+    },
+
+    // super admin user like bruno
+    // 3
+    {
+      normas: true,
+      tipo_servicio: true,
+      costos: true,
+      empresas: true,
+      prospectos: true,
+      servicios: true,
+      usuarios: true,
+      movimientos: true
+    }
+  ],
 };
 
 /*

@@ -1,7 +1,28 @@
-<div class="card mt-2 container">
-    <div class="card-body">
-      <p class="title colorAzul text-center">Bienvenido de nuevo Usuario</p>
-      <p class="body">Sientete libre de utilizar el sistema para fines de seguimiento en los servicios de la empresa A&E Intertrade</p>
-      <p class="colorRojo ">Cabe recalcar que si no tienes los permisos para una pagina, no podras acceder</p>
-    </div>
+<div class="card container mt-5">
+  <div class="container py-5">
+      <div class="card-title colorAzul ">
+          Bienvenido
+      </div>
+      
+      <div class="card-content">
+        <p > Algunas de las actividades que puedes hacer son: </p>
+        
+        <div class="list-group" >
+          <a [routerLink]="['/empresas']"  class="list-group-item list-group-item-action"> Ver todas las Empresas </a>
+          <a [routerLink]="['/prospectos']" class="list-group-item list-group-item-action">Ver todos los Prospectos</a>
+          <a [routerLink]="['/servicios']" class="list-group-item list-group-item-action">Ver todos los Servicios</a>
+
+          <span *ngIf="rol === 2 || rol === 3">
+            <a [routerLink]="['/normas']" class="list-group-item list-group-item-action">Ver todas las Normas</a>
+            <a [routerLink]="['/tipo-servicio']" class="list-group-item list-group-item-action">Ver los tipos de servicios</a>
+            <a [routerLink]="['/costos']" class="list-group-item list-group-item-action">Ver todos los Costos</a>
+          </span>
+
+          <span *ngIf="rol === 3">
+            <a [routerLink]="['/movimientos']" class="list-group-item list-group-item-action">Ver todos los Movimientos</a>
+          </span>
+
+        </div>
+      </div>
   </div>
+</div>
