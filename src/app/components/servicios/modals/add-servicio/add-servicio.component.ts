@@ -4,6 +4,7 @@ import { NormasService } from 'src/app/services/normas.service';
 import { ProspectosService } from 'src/app/services/prospectos.service';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MovimientosService } from 'src/app/services/movimientos.service';
 
 @Component({
   selector: 'app-add-servicio',
@@ -28,7 +29,8 @@ export class AddServicioComponent implements OnInit {
     public normasService: NormasService,
     public prospectosService: ProspectosService,
     public dialogRef: MatDialogRef<AddServicioComponent>,
-    public serviciosService: ServiciosService
+    public serviciosService: ServiciosService,
+    public movimientosService: MovimientosService
   ) { }
 
   ngOnInit() {
@@ -91,11 +93,18 @@ export class AddServicioComponent implements OnInit {
      console.log(this.servicio);
     await this.serviciosService.post(this.servicio)
       .subscribe(res => {
-        Swal.fire({ 
-          icon: 'success',
-          title: 'Se inserto el servicio'
+        let movimiento = {
+          idUsuario: sessionStorage.id,
+          tipo: 1,
+          descripcion: `Se agrego un nuevo servicio para el prospecto:  ${res['nombre']},  en la norma: ${res['codificacion']}`
+        }
+        this.movimientosService.post(movimiento).subscribe(() => {
+          Swal.fire({ 
+            icon: 'success',
+            title: 'Se inserto el servicio'
+          })
+          this.dialogRef.close('ok');
         })
-        this.dialogRef.close('ok');
       }, 
       e => {
         if(!e.error.mensaje)

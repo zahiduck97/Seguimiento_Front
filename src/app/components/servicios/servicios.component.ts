@@ -92,10 +92,14 @@ export class ServiciosComponent implements OnInit {
     }
   }
 
-  async validarUno(id){
+  async validarUno(data){
     const dialogRef = this.dialog.open(ValidarUnoComponent, {
       width: '700px',
-      data: {id}
+      data: {
+        id: data.id,
+        contratos: data.contratos,
+        idUsuario: data.idUsuario
+      }
     });
 
     await dialogRef.afterClosed().subscribe(result => {    
@@ -103,10 +107,12 @@ export class ServiciosComponent implements OnInit {
     }); 
   }
 
-  async validarDos(id){
+  async validarDos(data){
     const dialogRef = this.dialog.open(ValidarDosComponent, {
       width: '700px',
-      data: {id}
+      data: {
+
+      }
     });
 
     await dialogRef.afterClosed().subscribe(result => {    
@@ -114,10 +120,12 @@ export class ServiciosComponent implements OnInit {
     }); 
   }
 
-  async validarTres(id){
+  async validarTres(data){
     const dialogRef = this.dialog.open(ValidarTresComponent, {
       width: '700px',
-      data: {id}
+      data: {
+
+      }
     });
 
     await dialogRef.afterClosed().subscribe(result => {    

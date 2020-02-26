@@ -8,7 +8,7 @@ import { ServiciosService } from 'src/app/services/servicios.service';
   templateUrl: './validar-uno.component.html',
   styleUrls: ['./validar-uno.component.css']
 })
-export class ValidarUnoComponent  {
+export class ValidarUnoComponent implements OnInit  {
 
   public servicio = {
     contratos: 0,
@@ -24,6 +24,11 @@ export class ValidarUnoComponent  {
     @Inject(MAT_DIALOG_DATA) public data:any
   ) { }
 
+  // on init
+  ngOnInit(){
+    this.servicio.contratos = this.data.contratos;
+    this.servicio.idUsuario = this.data.idUsuario;
+  }
 
   // Close the modal
   cerrarModal(){
@@ -31,6 +36,10 @@ export class ValidarUnoComponent  {
   }
 
   guardar(){
+    console.log(this.servicio);
+    if(!this.servicio.contratos || !this.servicio.idUsuario)
+      console.log('object');
+    return 
     this.servicio.contratos = (this.servicio.contratos) ? 1: 0;
     console.log(this.servicio)
     this.serviciosService.putEstatusUno(this.servicio, this.data.id)
