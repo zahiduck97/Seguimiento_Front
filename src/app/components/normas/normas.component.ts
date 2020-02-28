@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from "sweetalert2"
 import { AddNormaComponent } from './modals/add-norma/add-norma.component';
 import { environment } from 'src/environments/environment';
+import { EditNormaComponent } from './modals/edit-norma/edit-norma.component';
 
 @Component({
   selector: 'app-normas',
@@ -69,6 +70,21 @@ export class NormasComponent implements OnInit {
   async formAddEmpresa(){
     const dialogRef = this.dialog.open(AddNormaComponent, {
       width: '700px'
+    });
+
+    await dialogRef.afterClosed().subscribe(result => {    
+      this.conectarServidor();
+    }); 
+  }
+
+  // Edit 
+  async editar(data){
+    const dialogRef = this.dialog.open(EditNormaComponent, {
+      width: '700px',
+      data: {
+        id: data.id,
+        codificacion: data.codificacion
+      }
     });
 
     await dialogRef.afterClosed().subscribe(result => {    

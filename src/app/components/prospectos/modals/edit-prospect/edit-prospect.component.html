@@ -1,0 +1,60 @@
+<div  class="row">
+    <form class="col-md-12"  #formAddEmpresa="ngForm">
+        
+            <h3  class="colorVerde col-md-12" style="text-align: center;">Editar Prospecto</h3>
+
+            <div class="divider"></div>
+
+            <!-- Loader -->
+            <div  style="padding: 5px 0px;">
+                <mat-progress-bar mode="indeterminate" *ngIf="preloaderActivo"></mat-progress-bar>
+            </div>
+
+            <div mat-dialog-content class="col-sm-12">
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <mat-form-field>
+                            <mat-label>Empresa</mat-label>
+                            <mat-select [(ngModel)]="prospecto.idEmpresa" name="empresa">
+                              <mat-option *ngFor="let empresa of empresas" [value]="empresa.id">
+                                {{empresa.nombre}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" #nombre="ngModel" [(ngModel)]="prospecto.nombre" name="nombre" id="nombre" required oninput="this.value = this.value.toUpperCase()" class="form-control">
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <label for="telefono">Telefono:</label>
+                        <input type="text" #telefono="ngModel" [(ngModel)]="prospecto.telefono" name="telefono" id="telefono" required  class="form-control">
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <label for="correo">Correo:</label>
+                        <input type="email" #correo="ngModel" [(ngModel)]="prospecto.correo" name="correo" id="correo" required  class="form-control">
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <label for="direccion">Direccion:</label>
+                        <input type="text" #direccion="ngModel" [(ngModel)]="prospecto.direccion" name="direccion" id="direccion" required oninput="this.value = this.value.toUpperCase()" class="form-control">
+                    </div>
+                </div>
+            </div>  
+            
+            <div mat-dialog-actions class="col-sm-12">
+                <div class="col-sm-12" style="margin-bottom: 10px;">
+                    <button class="btn botonCafe waves-effect" (click)="cerrarModal()" style="width: 100%;">Cancelar</button>
+                </div>
+    
+                <div class="col-sm-12">
+                    <input class="btn botonVerde" type="submit" style="width: 100%;" value="Guardar" [disabled]="!formAddEmpresa.form.valid || desactivado" (click)="guardar()">
+                </div>
+            </div>
+
+    </form>
+</div >
+

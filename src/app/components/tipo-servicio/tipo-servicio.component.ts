@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AddTipoServicioComponent } from './modals/add-tipo-servicio/add-tipo-servicio.component';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
+import { EditTipoServicioComponent } from './modals/edit-tipo-servicio/edit-tipo-servicio.component';
 
 @Component({
   selector: 'app-tipo-servicio',
@@ -69,6 +70,21 @@ export class TipoServicioComponent implements OnInit {
   async formAddEmpresa(){
     const dialogRef = this.dialog.open(AddTipoServicioComponent, {
       width: '700px'
+    });
+
+    await dialogRef.afterClosed().subscribe(result => {    
+      this.conectarServidor();
+    }); 
+  }
+
+  // Editar
+  async editar(data){
+    const dialogRef = this.dialog.open(EditTipoServicioComponent, {
+      width: '700px',
+      data: {
+        id: data.id,
+        nombre: data.nombre
+      }
     });
 
     await dialogRef.afterClosed().subscribe(result => {    

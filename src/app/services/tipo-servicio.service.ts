@@ -16,4 +16,9 @@ export class TipoServicioService {
     return this.http.post(environment.Url_Service + 'TipoServicio/', data);
   }
 
+  // Update
+  editar(data, id){
+    return this.http.put(environment.Url_Service + 'TipoServicio/' + id, data);
+  }
+
 }

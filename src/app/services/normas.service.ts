@@ -17,5 +17,9 @@ export class NormasService {
     return this.http.post(environment.Url_Service + 'Normas/', data);
   }
 
+  editar(data, id){
+    return this.http.put(environment.Url_Service + 'Normas/' + id, data);
+  }
+
 
 }

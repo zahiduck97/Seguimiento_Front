@@ -14,8 +14,14 @@ export class ProspectosService {
     return this.http.get(environment.Url_Service + 'Prospectos/');
   }
 
+  // Validate the prospect
   put(data, id){
     return this.http.put(environment.Url_Service + 'Prospectos/' + id, data);
+  }
+
+  // Editar el prospect
+  editar(data, id){
+    return this.http.put(environment.Url_Service + 'Prospectos/editar/' + id, data);
   }
 
   post(data){

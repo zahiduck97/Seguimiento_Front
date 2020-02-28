@@ -12,7 +12,7 @@ import { MovimientosService } from 'src/app/services/movimientos.service';
 export class ValidarProspectoComponent implements OnInit {
 
   public prospecto = {
-    contrato: false,
+    contratos: false,
     acta: false,
     rfc: false,
     carta: false
@@ -44,10 +44,11 @@ export class ValidarProspectoComponent implements OnInit {
       aux += 'Acta Constitutiva, '
     if(this.prospecto.carta)
       aux += 'Carta Poder, '
-    if(this.prospecto.contrato)
+    if(this.prospecto.contratos)
       aux += 'Contrato Original UVA/OCP, '
     if(this.prospecto.rfc)
       aux += 'RFC, '
+      console.log(this.prospecto, aux);
     this.prospectosService.put(this.prospecto, this.data.id)
     .subscribe(res => {
       let movimiento = {

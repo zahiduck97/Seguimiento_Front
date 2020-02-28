@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { AddProspectoComponent } from './modals/add-prospecto/add-prospecto.component';
 import { ValidarProspectoComponent } from './modals/validar-prospecto/validar-prospecto.component';
 import { environment } from 'src/environments/environment';
+import { EditProspectComponent } from './modals/edit-prospect/edit-prospect.component';
 
 @Component({
   selector: 'app-prospectos',
@@ -128,6 +129,24 @@ export class ProspectosComponent implements OnInit {
         });
       }
     }
+  }
+
+  async editar(data){
+    const dialogRef = this.dialog.open(EditProspectComponent, {
+      width: '700px',
+      data: {
+        id: data.id,
+        nombre: data.nombre,
+        idEmpresa: data.idEmpresa,
+        telefono: data.telefono,
+        correo: data.correo,
+        direccion: data.direccion
+      }
+    });
+
+    await dialogRef.afterClosed().subscribe(res => {
+      this.conectarServidor();
+    })
   }
 
   validado(){
