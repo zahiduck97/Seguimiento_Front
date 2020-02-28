@@ -16,4 +16,13 @@ export class CostosService {
     return this.http.post(environment.Url_Service + 'Costos/', data);
   }
 
+  editar(data, id){
+    return this.http.put(environment.Url_Service + 'Costos/' + id, data);
+  }
+
+  // Get 1
+  get1Costo(id){
+    return this.http.get(environment.Url_Service + 'Costos/' + id);
+  }
+
 }

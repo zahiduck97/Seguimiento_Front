@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCostoComponent } from './modals/add-costo/add-costo.component';
 import { environment } from 'src/environments/environment';
+import {EditCostoComponent} from './modals/edit-costo/edit-costo.component';
 
 @Component({
   selector: 'app-costos',
@@ -75,6 +76,23 @@ export class CostosComponent implements OnInit {
     await dialogRef.afterClosed().subscribe(result => {    
       this.conectarServidor();
     }); 
+  }
+
+  // Update
+  async editar(data){
+    const dialogRef = this.dialog.open(EditCostoComponent, {
+      width: '700px',
+      data: {
+        id: data.id,
+        idNorma: data.idNorma,
+        idTipoServicio: data.idTipoServicio,
+        costo: data.costo
+      }
+    });
+
+    await dialogRef.afterClosed().subscribe(result => {
+      this.conectarServidor();
+    });
   }
 
   // Filtering

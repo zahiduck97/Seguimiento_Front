@@ -96,7 +96,7 @@ export class AddCostoComponent implements OnInit {
         let movimiento = {
           idUsuario: sessionStorage.id,
           tipo: 1,
-          descripcion: `Se creo un costo para la norma:  ${res['codificacion']} y el tipo de servicio: ${res['nombre']}`
+          descripcion: `Se creo un costo para la norma:  ${res['codificacion']} y el tipo de servicio: ${res['nombre']} con un valor de: ${res['costo']}`
         }
         this.movimientosService.post(movimiento).subscribe(() => {
           Swal.fire({ 

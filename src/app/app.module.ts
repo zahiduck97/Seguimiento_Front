@@ -74,6 +74,7 @@ import { MovimientosComponent } from './components/movimientos/movimientos.compo
 import { EditProspectComponent } from './components/prospectos/modals/edit-prospect/edit-prospect.component';
 import { EditNormaComponent } from './components/normas/modals/edit-norma/edit-norma.component';
 import { EditTipoServicioComponent } from './components/tipo-servicio/modals/edit-tipo-servicio/edit-tipo-servicio.component';
+import { EditCostoComponent } from './components/costos/modals/edit-costo/edit-costo.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -106,7 +107,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MovimientosComponent,
     EditProspectComponent,
     EditNormaComponent,
-    EditTipoServicioComponent
+    EditTipoServicioComponent,
+    EditCostoComponent
   ],
   imports: [
     BrowserModule,
@@ -161,7 +163,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     AddEmpresaComponent, EditEmpresaComponent, AddProspectoComponent,
     ValidarProspectoComponent, AddNormaComponent, AddTipoServicioComponent, AddCostoComponent,
     AddCotizacionComponent, AddServicioComponent, ValidarUnoComponent, ValidarDosComponent,
-    ValidarTresComponent, AddUsuarioComponent, EditProspectComponent, EditNormaComponent, EditTipoServicioComponent
+    ValidarTresComponent, AddUsuarioComponent, EditProspectComponent, EditNormaComponent, EditTipoServicioComponent, EditCostoComponent
   ],
   bootstrap: [AppComponent]
 })
