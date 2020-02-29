@@ -1,0 +1,84 @@
+<div class="container card mt-5">
+    <div>
+
+        <!-- Loader -->
+        <div  style="padding: 5px 0px;">
+            <mat-progress-bar mode="indeterminate" *ngIf="preloaderActivo"></mat-progress-bar>
+        </div>
+    
+        <div class="w-100">
+            <div class="text-center mt-3">
+                <h3><strong class="colorAzul">COTIZACIONES</strong></h3>
+            </div>
+        
+                
+
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <button class="btn" (click)="conectarServidor()" data-toggle="tooltip" data-placement="top" title="Recargar Cotizaciones" [disabled]="desactivado">
+                        <i class="material-icons">replay</i>
+                    </button>
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <button class="btn botonAzul white-text" (click)="nuevo()" [disabled]="desactivado"> Nueva Cotizacion</button> 
+                </div>
+            </div>
+    
+        </div>
+    
+    
+    <div>
+
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="prospecto">
+                <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Prospecto </th>
+                <td mat-cell *matCellDef="let row"> {{  }}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Fecha </th>
+                <td mat-cell *matCellDef="let row">  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="codificacion">
+                <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Codificacion </th>
+                <td mat-cell *matCellDef="let row">  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoServicio">
+                <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Tipo </th>
+                <td mat-cell *matCellDef="let row">  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="costo">
+                <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Costo </th>
+                <td mat-cell *matCellDef="let row">  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Total </th>
+                <td mat-cell *matCellDef="let row">  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Acciones </th>
+                <td mat-cell *matCellDef="let row"> 
+                    
+                    <!-- <i class="material-icons colorAzul" data-toggle="tooltip" data-placement="top" title="Editar Empresa" (click)="editEmpresa(row)">edit</i>     -->
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+</div>

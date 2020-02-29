@@ -57,7 +57,6 @@ import { CostosComponent } from './components/costos/costos.component';
 import { AddNormaComponent } from './components/normas/modals/add-norma/add-norma.component';
 import { AddTipoServicioComponent } from './components/tipo-servicio/modals/add-tipo-servicio/add-tipo-servicio.component';
 import { AddCostoComponent } from './components/costos/modals/add-costo/add-costo.component';
-import { AddCotizacionComponent } from './components/cotizacion/modals/add-cotizacion/add-cotizacion.component';
 import { ServiciosComponent } from './components/servicios/servicios.component';
 import { AddServicioComponent } from './components/servicios/modals/add-servicio/add-servicio.component';
 import { ValidarUnoComponent } from './components/servicios/modals/validar-uno/validar-uno.component';
@@ -75,6 +74,8 @@ import { EditProspectComponent } from './components/prospectos/modals/edit-prosp
 import { EditNormaComponent } from './components/normas/modals/edit-norma/edit-norma.component';
 import { EditTipoServicioComponent } from './components/tipo-servicio/modals/edit-tipo-servicio/edit-tipo-servicio.component';
 import { EditCostoComponent } from './components/costos/modals/edit-costo/edit-costo.component';
+import { CotizacionComponent } from './components/cotizacion/cotizacion.component';
+import { AddCotizacionComponent } from './components/cotizacion/modals/add-cotizacion/add-cotizacion.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -93,7 +94,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     AddNormaComponent,
     AddTipoServicioComponent,
     AddCostoComponent,
-    AddCotizacionComponent,
     ServiciosComponent,
     AddServicioComponent,
     ValidarUnoComponent,
@@ -108,7 +108,9 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     EditProspectComponent,
     EditNormaComponent,
     EditTipoServicioComponent,
-    EditCostoComponent
+    EditCostoComponent,
+    CotizacionComponent,
+    AddCotizacionComponent
   ],
   imports: [
     BrowserModule,
@@ -161,9 +163,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
   providers: [],
   entryComponents: [
     AddEmpresaComponent, EditEmpresaComponent, AddProspectoComponent,
-    ValidarProspectoComponent, AddNormaComponent, AddTipoServicioComponent, AddCostoComponent,
-    AddCotizacionComponent, AddServicioComponent, ValidarUnoComponent, ValidarDosComponent,
-    ValidarTresComponent, AddUsuarioComponent, EditProspectComponent, EditNormaComponent, EditTipoServicioComponent, EditCostoComponent
+    ValidarProspectoComponent, AddNormaComponent, AddTipoServicioComponent, AddCostoComponent, AddServicioComponent, ValidarUnoComponent, ValidarDosComponent,
+    ValidarTresComponent, AddUsuarioComponent, EditProspectComponent, EditNormaComponent, EditTipoServicioComponent, EditCostoComponent, AddCotizacionComponent
   ],
   bootstrap: [AppComponent]
 })

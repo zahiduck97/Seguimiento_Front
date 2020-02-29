@@ -1,1 +1,71 @@
-<p>add-cotizacion works!</p>
+<div class="row">
+    <form class="col-md-12" #formAddEmpresa="ngForm">
+
+        <h3 class="colorVerde col-md-12" style="text-align: center;">Agregar Cotizacion</h3>
+
+        <div class="divider"></div>
+
+        <div style="padding: 5px 0px;">
+            <mat-progress-bar mode="indeterminate" *ngIf="preloaderActivo"></mat-progress-bar>
+        </div>
+
+        <div mat-dialog-content class="col-sm-12">
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <mat-form-field>
+                        <mat-label>Prospecto</mat-label>
+                        <mat-select [(ngModel)]="cotizacion.idProspecto" name="idNorma">
+                            <mat-option *ngFor="let prospecto of prospectos" [value]="prospecto.id">
+                                {{ prospecto.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-sm-12 col-md-6">
+                    <mat-form-field>
+                        <mat-label>Norma</mat-label>
+                        <mat-select [(ngModel)]="cotizacion.idNorma" name="idTipoServicio" (selectionChange)="buscarTipoServicio()">
+                            <mat-option *ngFor="let norma of normas" [value]="norma.id">
+                                {{norma.codificacion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-sm-12 col-md-6">
+                    <mat-form-field>
+                        <mat-label>Tipo Servicio</mat-label>
+                        <mat-select [(ngModel)]="cotizacion.idTipoServicio" name="idTipoServicio" (selectionChange)="buscarCosto()">
+                            <mat-option *ngFor="let tipo of tipoServicio" [value]="tipo.idTipoServicio">
+                                {{  tipo.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>        
+
+                <div class="form-group col-sm-12">
+                    <label for="costo">Total:</label>
+                    <input type="text" [(ngModel)]="total" name="costo" id="costo" class="form-control" readonly>
+                </div>
+
+                <!-- <div class="form-group col-sm-12">
+                    <label for="comentario">Comentario:</label>
+                    <input type="text" [(ngModel)]="cotizacion.comentario" name="comentario" id="comentario" class="form-control">
+                </div> -->
+
+            </div>
+        </div>
+
+        <div mat-dialog-actions class="col-sm-12">
+            <div class="col-sm-12" style="margin-bottom: 10px;">
+                <button class="btn botonCafe waves-effect" (click)="cerrarModal()" style="width: 100%;">Cancelar</button>
+            </div>
+
+            <div class="col-sm-12">
+                <input class="btn botonVerde" type="submit" style="width: 100%;" value="Guardar" [disabled]="!formAddEmpresa.form.valid || desactivado" (click)="guardar()">
+            </div>
+        </div>
+
+    </form>
+</div>
