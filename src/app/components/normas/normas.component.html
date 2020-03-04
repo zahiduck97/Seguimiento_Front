@@ -24,7 +24,7 @@
                 </div>
 
                 <div>
-                    <button class="btn botonAzul white-text" (click)="formAddEmpresa()" [disabled]="desactivado"> Nueva Norma</button>
+                    <button class="btn botonAzul white-text" (click)="nuevo()" [disabled]="desactivado"> Nueva Norma</button>
                 </div>
             </div>
 
@@ -45,8 +45,8 @@
                     <td mat-cell *matCellDef="let row">
 
                         <i class="material-icons colorAzul" data-toggle="tooltip" data-placement="top" title="Editar Norma" (click)="editar(row)">edit</i>
-                        <!-- 
-                        <i class="material-icons colorRojo" data-toggle="tooltip" data-placement="top" title="Borrar Empresa" (click)="deleteEmpresa(row.id)">delete</i> -->
+                        
+                        <i class="material-icons colorRojo" data-toggle="tooltip" data-placement="top" title="Borrar Norma" (click)="delete(row)">delete</i>
 
                     </td>
                 </ng-container>

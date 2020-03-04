@@ -102,7 +102,7 @@ export class EditCostoComponent implements OnInit {
               let movimiento = {
                 idUsuario: sessionStorage.id,
                 tipo: 2,
-                descripcion: `Se modifico el costo de: ${resultado['codificacion']}, ${resultado['nombre']}, ${resultado['costo']}  A: ${res['codificacion']}, ${res['nombre']}, ${res['costo']}`
+                descripcion: `Se modifico un costo con  norma: "${resultado['codificacion']}", tipo de servicio: "${resultado['nombre']}" y costo: "$${resultado['costo']}" A norma: "${res['codificacion']}", tipo de servicio: "${res['nombre']}" y costo: "$${res['costo']}"`
               }
               this.movimientosService.post(movimiento).subscribe(() => {
                 Swal.fire({

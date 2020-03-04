@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import Swal from "sweetalert2"
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import { MovimientosService } from 'src/app/services/movimientos.service';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -22,6 +23,7 @@ export class MovimientosComponent implements OnInit {
   public dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
     public movimientosService: MovimientosService,
@@ -32,6 +34,7 @@ export class MovimientosComponent implements OnInit {
   // Al iniciar
   ngOnInit() {
     this.conectarServidor();
+    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 

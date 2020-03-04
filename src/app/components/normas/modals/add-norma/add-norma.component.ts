@@ -35,7 +35,7 @@ export class AddNormaComponent {
           let movimiento = {
             idUsuario: sessionStorage.id,
             tipo: 1,
-            descripcion: `Se creo la Norma:  ${this.norma.codificacion}`
+            descripcion: `Se creo la Norma:  "${this.norma.codificacion}"`
           }
           this.movimientosService.post(movimiento).subscribe(() => {
             Swal.fire({ 

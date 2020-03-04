@@ -17,4 +17,12 @@ export class UsuariosService {
   get(){
     return this.http.get<Usuario[]>(environment.Url_Service + 'Usuarios/');
   }
+
+  put(data, id){
+    return this.http.put(environment.Url_Service + 'Usuarios/' + id, data);
+  }
+
+  delete(id){
+    return this.http.put(environment.Url_Service + 'Usuarios/activo/'+id, null);
+  }
 }

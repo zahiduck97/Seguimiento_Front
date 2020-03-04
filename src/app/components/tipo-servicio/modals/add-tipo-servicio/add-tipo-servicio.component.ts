@@ -37,7 +37,7 @@ export class AddTipoServicioComponent {
           let movimiento = {
             idUsuario: sessionStorage.id,
             tipo: 1,
-            descripcion: `Se creo el tipo de servicio:  ${this.tipoServicio.nombre}`
+            descripcion: `Se creo el tipo de servicio:  "${this.tipoServicio.nombre}"`
           }
           this.movimientosService.post(movimiento).subscribe(() => {
             Swal.fire({ 

@@ -35,7 +35,7 @@ export class AddEmpresaComponent {
           let movimiento = {
             idUsuario: sessionStorage.id,
             tipo: 1,
-            descripcion: `Se creo la empresa:  ${this.empresa.nombre}`
+            descripcion: `Se creo la empresa:  "${this.empresa.nombre}"`
           }
           this.movimientosService.post(movimiento).subscribe(() => {
             Swal.fire({ 

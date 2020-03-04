@@ -46,7 +46,7 @@ export class EditEmpresaComponent implements OnInit {
         let movimiento = {
           idUsuario: sessionStorage.id,
           tipo: 2,
-          descripcion: `Se edito la empresa de:  ${this.oldEmpresa} a: ${this.data.empresa.nombre}`
+          descripcion: `Se edito el nombre de la empresa de:  "${this.oldEmpresa}" A: "${this.data.empresa.nombre}"`
         }
         this.movimientosService.post(movimiento).subscribe(() => {
           this.dialogRef.close();

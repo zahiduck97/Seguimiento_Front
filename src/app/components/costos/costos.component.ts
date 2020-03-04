@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddCostoComponent } from './modals/add-costo/add-costo.component';
 import { environment } from 'src/environments/environment';
 import {EditCostoComponent} from './modals/edit-costo/edit-costo.component';
+import { MovimientosService } from 'src/app/services/movimientos.service';
 
 @Component({
   selector: 'app-costos',
@@ -30,7 +31,8 @@ export class CostosComponent implements OnInit {
   constructor(
     public costosService: CostosService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public movimientosService: MovimientosService
     ) { this.validarUsuario();}
 
 
@@ -125,5 +127,57 @@ export class CostosComponent implements OnInit {
         });
       }
     }
+  }
+
+   // Delete a empresa
+   async delete(data){
+    if(this.desactivado)
+      return false;
+
+    Swal.fire({
+      title: '¿Estas seguro que quieres borrar el costo?',
+      text: 'Esto eliminara todas cotizaciones y servicios que contengan el mismo.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Borrar',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.preloaderActivo = true;
+        this.desactivado = true;
+
+        this.costosService.delete(data.id).toPromise()
+        .then(db => {
+          let movimiento = {
+            idUsuario: sessionStorage.id,
+            tipo: 3,
+            descripcion: `Se borro el costo de la norma: "${data.codificacion}", con el tipo de servicio: "${data.nombre}" y con un valor de: "$${data.costo}"`
+          }
+          this.movimientosService.post(movimiento).subscribe(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Se borro el costo.'
+            })
+            this.conectarServidor();
+          })
+        }).catch ( e => {
+          if(!e.error.mensaje)
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'El servidor no esta conectado'
+            })
+          else 
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: e.error.mensaje
+            })
+        }).finally(() => {
+          this.preloaderActivo = false;
+          this.desactivado = false;
+        })
+      }
+    })
   }
 }

@@ -25,4 +25,9 @@ export class CostosService {
     return this.http.get(environment.Url_Service + 'Costos/' + id);
   }
 
+  // Delete 
+  delete(id){
+    return this.http.put(environment.Url_Service + 'Costos/activo/' + id, null);
+  }
+
 }

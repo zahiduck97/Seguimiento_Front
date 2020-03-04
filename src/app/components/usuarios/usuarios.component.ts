@@ -8,6 +8,9 @@ import { AddUsuarioComponent } from './modals/add-usuario/add-usuario.component'
 import Swal from "sweetalert2"
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { MatSort } from '@angular/material';
+import { EditUsuarioComponent } from './modals/edit-usuario/edit-usuario.component';
+import { MovimientosService } from 'src/app/services/movimientos.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -26,17 +29,20 @@ export class UsuariosComponent implements OnInit {
   public dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   // Constructor
   constructor(
     private usuariosService: UsuariosService, 
     public dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    public movimientosService: MovimientosService
     ) { this.validarUsuario(); }
 
   // To Init
   ngOnInit() {
     this.conectarServidor();
+    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
@@ -98,88 +104,22 @@ export class UsuariosComponent implements OnInit {
     });
   }
   
+  // Edit the tramitador
+  async editar(user){
+    if(this.desactivado)
+      return false;
 
-  // // Delete the user
-  // deleteUsuario(data){
-  //   if(this.desactivado)
-  //     return false;
+    const dialogRef = this.dialog.open(EditUsuarioComponent, {
+      data: user,
+      width: '500px'
+    })
 
-  //   Swal.fire({
-  //     title: '¿Estas seguro de que quieres borrar este usuario?',
-  //     text: 'No podras recuperar la informacion despues.',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Si, borrar',
-  //     cancelButtonText: 'No, cancelar'
-  //   }).then((result) => {
-  //     if (result.value) {
-        
-        
-  //       this.preloaderActivo = true
-  //       this.usuariosService.deleteUsuario(data).toPromise()
-  //         .then(res => {
-  //           this.preloaderActivo = false;
-  //           Swal.fire({
-  //             icon: 'success',
-  //             title: 'Se borro el usuario',
-  //           })
-            
-  //           this.conectarServidor()
-  //         })
-  //         .catch(
-  //           err => {
-  //             if(!err.error.mensaje){ 
-  //               Swal.fire({
-  //                 icon: 'error',
-  //                 title: 'Error',
-  //                 text: 'El servidor no esta conectado'
-  //               })
-  //             } else {
-  //               Swal.fire({
-  //                 icon: 'error',
-  //                 title: 'Error',
-  //                 text: err.error.mensaje
-  //               })
-  //             }
-  //             this.preloaderActivo = false;
-  //           })
-  //     }
-  //   })
-
-  // }
-
-  // // Edit the tramitador
-  // async editarTramitador(tramitador){
-  //   if(this.desactivado)
-  //     return false;
-
-  //   const dialogRef = this.dialog.open(EditTramitadoresUserComponent, {
-  //     data: { tramitador },
-  //     width: '500px'
-  //   })
-
-  //   await dialogRef.afterClosed().subscribe(
-  //     res => {
-  //       this.conectarServidor();
-  //     }
-  //   )
-  // }
-
-  // // Edit the Empleado
-  // async editarEmpleado(empleado){
-  //   if(this.desactivado)
-  //     return false;
-
-  //   const dialogRef = this.dialog.open(EditEmpleadosUserComponent, {
-  //     data: { empleado },
-  //     width: '500px'
-  //   })
-
-  //   await dialogRef.afterClosed().subscribe(
-  //     res => {
-  //       this.conectarServidor();
-  //     })
-  // }
+    await dialogRef.afterClosed().subscribe(
+      res => {
+        this.conectarServidor();
+      }
+    )
+  }
 
   // // edit password
   // async editarPassword(usuario){
@@ -196,6 +136,59 @@ export class UsuariosComponent implements OnInit {
   //       this.conectarServidor();
   //     })
   // }
+
+  // Delete a empresa
+  async delete(data){
+    if(this.desactivado)
+      return false;
+
+    Swal.fire({
+      title: '¿Estas seguro que quieres borrar el usuario?',
+      text: 'No podras recuperar su informacion despues.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Borrar',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.preloaderActivo = true;
+        this.desactivado = true;
+
+        this.usuariosService.delete(data.id).toPromise()
+        .then(db => {
+          let aux = (data.rol == 1) ? "Usuario Normal": "Usuario Administrador";
+          let movimiento = {
+            idUsuario: sessionStorage.id,
+            tipo: 3,
+            descripcion: `Se borro el usuario: "${data.nombre}" con username: "${data.username}" y que era un "${aux}"`
+          }
+          this.movimientosService.post(movimiento).subscribe(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Se borro la empresa'
+            })
+            this.conectarServidor();
+          })
+        }).catch ( e => {
+          if(!e.error.mensaje)
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'El servidor no esta conectado'
+            })
+          else 
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: e.error.mensaje
+            })
+        }).finally(() => {
+          this.preloaderActivo = false;
+          this.desactivado = false;
+        })
+      }
+    })
+  }
 
   // Tine prmisos o esta autenticado
   validarUsuario(){

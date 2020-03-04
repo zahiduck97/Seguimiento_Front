@@ -30,23 +30,23 @@
     
     
     <div>
-        <table mat-table [dataSource]="dataSource">
+        <table mat-table [dataSource]="dataSource" matSort>
     
         <!-- ID Column -->
         <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;">  Usuario </th>
+            <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;" mat-sort-header>  Usuario </th>
             <td mat-cell *matCellDef="let row"> {{ row.nombre }} </td>
         </ng-container>
     
         <!-- Progress Column -->
         <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Username </th>
+        <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;" mat-sort-header> Username </th>
         <td mat-cell *matCellDef="let row"> {{  row.username  }} </td>
         </ng-container>
     
         <!-- Name Column -->
         <ng-container matColumnDef="rol">
-            <th mat-header-cell *matHeaderCellDef class="botonAzul text-white text-center" style="font-size: 20px;"> Rol </th>
+            <th mat-header-cell *matHeaderCellDef class="botonAzul text-white text-center" style="font-size: 20px;" mat-sort-header> Rol </th>
             <td mat-cell *matCellDef="let row">
                 <span *ngIf="row.rol == '1'; else rolAdmi"> Usuario  </span>
                 <ng-template #rolAdmi>
@@ -59,15 +59,11 @@
         <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef  class="botonAzul text-white text-center" style="font-size: 20px;"> Acciones </th>
             <td mat-cell *matCellDef="let row" [style.color]="row.color">
-                <!-- <i class="material-icons colorAmarillo" (click)="editarPassword(row)" data-toggle="tooltip" data-placement="top" title="Cambiar Contraseña">vpn_key</i>        
+                <i class="material-icons colorAzul" (click)="editar(row)" data-toggle="tooltip" data-placement="top" title="Editar Usuario">edit</i>
 
-                <i class="material-icons colorAzul" (click)="editarTramitador(row)" *ngIf="row.rol == 'T'; else rowEmpleado" data-toggle="tooltip" data-placement="top" title="Editar Usuario">edit</i>
+                <i class="material-icons colorRojo" (click)="delete(row)" data-toggle="tooltip" data-placement="top" title="Borrar Usuario">delete</i>
                 
-                <ng-template #rowEmpleado>
-                    <i class="material-icons colorAzul" (click)="editarTramitador(row)"data-toggle="tooltip" data-placement="top" title="Editar Usuario">edit</i>
-                </ng-template>
-    
-                <i class="material-icons colorRojo" (click)="deleteUsuario(row)" data-toggle="tooltip" data-placement="top" title="Borrar Usuario">delete</i> -->
+                <i class="material-icons colorAmarillo" (click)="editarPassword(row)" data-toggle="tooltip" data-placement="top" title="Cambiar Contraseña">vpn_key</i>
             </td>
         </ng-container>
     

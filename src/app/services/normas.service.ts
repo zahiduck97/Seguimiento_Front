@@ -21,5 +21,8 @@ export class NormasService {
     return this.http.put(environment.Url_Service + 'Normas/' + id, data);
   }
 
+  delete(id){
+    return this.http.put(environment.Url_Service + 'Normas/activo/' + id, null);
+  }
 
 }

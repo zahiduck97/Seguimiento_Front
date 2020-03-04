@@ -44,7 +44,7 @@ export class EditTipoServicioComponent implements OnInit {
           let movimiento = {
             idUsuario: sessionStorage.id,
             tipo: 2,
-            descripcion: `Se Modifico el tipo de servicio de: ${this.data.nombre} A: ${this.tipoServicio.nombre}`
+            descripcion: `Se Modifico el tipo de servicio de: "${this.data.nombre}" A: "${this.tipoServicio.nombre}"`
           }
           this.movimientosService.post(movimiento).subscribe(() => {
             Swal.fire({ 

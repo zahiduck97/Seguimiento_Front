@@ -21,4 +21,9 @@ export class TipoServicioService {
     return this.http.put(environment.Url_Service + 'TipoServicio/' + id, data);
   }
 
+  // borrar
+  delete(id){
+    return this.http.put(environment.Url_Service + 'TipoServicio/activo/' + id, null);
+  }
+
 }

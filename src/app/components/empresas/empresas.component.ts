@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { AddEmpresaComponent } from './modals/add-empresa/add-empresa.component';
 import { EditEmpresaComponent } from './modals/edit-empresa/edit-empresa.component';
 import { environment } from 'src/environments/environment';
+import { MovimientosService } from 'src/app/services/movimientos.service';
 
 @Component({
   selector: 'app-empresas',
@@ -29,7 +30,8 @@ export class EmpresasComponent implements OnInit {
   constructor(
     public empresasService: EmpresasService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public movimientosService: MovimientosService
     ) { this.validarUsuario(); }
 
 
@@ -92,8 +94,8 @@ export class EmpresasComponent implements OnInit {
       return false;
 
     Swal.fire({
-      title: '¿Estas seguro que quieres borrarla?',
-      text: 'No podras recuperar la informacion despues.',
+      title: '¿Estas seguro que quieres borrar la empresa?',
+      text: 'Esto significa que se borraran todos los prospectos y servicios relacionados con la empresa',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, Borrar',
@@ -103,13 +105,20 @@ export class EmpresasComponent implements OnInit {
         this.preloaderActivo = true;
         this.desactivado = true;
 
-        this.empresasService.delete(empresa).toPromise()
+        this.empresasService.delete(empresa.id).toPromise()
         .then(empresadb => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Se borro la Empresa'
+          let movimiento = {
+            idUsuario: sessionStorage.id,
+            tipo: 3,
+            descripcion: `Se borro la empresa: "${empresa.nombre}"`
+          }
+          this.movimientosService.post(movimiento).subscribe(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Se borro la empresa'
+            })
+            this.conectarServidor();
           })
-          this.conectarServidor();
         }).catch ( e => {
           if(!e.error.mensaje)
             Swal.fire({

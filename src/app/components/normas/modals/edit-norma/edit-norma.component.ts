@@ -42,7 +42,7 @@ export class EditNormaComponent implements OnInit {
           let movimiento = {
             idUsuario: sessionStorage.id,
             tipo: 2,
-            descripcion: `Se edito la Norma de: ${this.data.codificacion} A: ${this.norma.codificacion}`
+            descripcion: `Se edito la codificacion de la Norma de: "${this.data.codificacion}" A: "${this.norma.codificacion}"`
           }
           this.movimientosService.post(movimiento).subscribe(() => {
             Swal.fire({ 
