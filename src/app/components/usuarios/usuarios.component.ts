@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { MatSort } from '@angular/material';
 import { EditUsuarioComponent } from './modals/edit-usuario/edit-usuario.component';
 import { MovimientosService } from 'src/app/services/movimientos.service';
+import { EditPasswordComponent } from './modals/edit-password/edit-password.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -121,21 +122,21 @@ export class UsuariosComponent implements OnInit {
     )
   }
 
-  // // edit password
-  // async editarPassword(usuario){
-  //   if(this.desactivado)
-  //     return false;
+  // edit password
+  async editarPassword(usuario) {
+    if(this.desactivado)
+      return false;
 
-  //   const dialogRef = this.dialog.open(EditPasswordComponent, {
-  //     data: { usuario },
-  //     width: '500px'
-  //   })
+    const dialogRef = this.dialog.open(EditPasswordComponent, {
+      data: usuario,
+      width: '500px'
+    })
 
-  //   await dialogRef.afterClosed().subscribe(
-  //     res => {
-  //       this.conectarServidor();
-  //     })
-  // }
+    await dialogRef.afterClosed().subscribe(
+      res => {
+        this.conectarServidor();
+      })
+  }
 
   // Delete a empresa
   async delete(data){

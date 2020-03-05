@@ -25,4 +25,9 @@ export class UsuariosService {
   delete(id){
     return this.http.put(environment.Url_Service + 'Usuarios/activo/'+id, null);
   }
+
+  // Update PAssword
+  updatePassword(data, id) {
+    return this.http.put(environment.Url_Service + 'Usuarios/password/' + id, data);
+  }
 }
