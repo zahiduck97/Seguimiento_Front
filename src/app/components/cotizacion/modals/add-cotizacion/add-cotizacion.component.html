@@ -12,54 +12,64 @@
         <div mat-dialog-content class="col-sm-12">
             <div class="row">
                 <div class="form-group col-sm-12">
-                    <mat-form-field>
+                    <mat-form-field required>
                         <mat-label>Prospecto</mat-label>
-                        <mat-select [(ngModel)]="cotizacion.idProspecto" name="idNorma">
+                        <mat-select [(ngModel)]="cotizacion.idProspecto" name="idNorma" id="idNorma" required>
                             <mat-option *ngFor="let prospecto of prospectos" [value]="prospecto.id">
                                 {{ prospecto.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
+      
 
-                <div class="form-group col-sm-12 col-md-6">
-                    <mat-form-field>
-                        <mat-label>Norma</mat-label>
-                        <mat-select [(ngModel)]="cotizacion.idNorma" name="idTipoServicio" (selectionChange)="buscarTipoServicio()">
-                            <mat-option *ngFor="let norma of normas" [value]="norma.id">
-                                {{norma.codificacion}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                <div *ngFor="let control of serviciosArray.controls; index as i" class="m-3">
+                    <div class="form-group">
+                        <mat-form-field>
+                            <mat-label>Norma</mat-label>
+                            <mat-select [formControl]="normasArray.controls[i]"  (selectionChange)="buscarTipoServicio(i)" required name="prueba">
+                                <mat-option *ngFor="let norma of normas[i]" [value]="norma.id">
+                                    {{norma.codificacion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+    
+                    <div class="form-group ">
+                        <mat-form-field>
+                            <mat-label>Tipo Servicio</mat-label>
+                            <mat-select [formControl]="serviciosArray.controls[i]" (selectionChange)="buscarCosto(i)" name="prue" required>
+                                <mat-option *ngFor="let tipo of tipoServicio[i]" [value]="tipo.idTipoServicio">
+                                    {{  tipo.nombre }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>  
+
+                    <button class="btn btn-outline-danger btn-block" (click)="quitar(i)">Eliminar</button>
                 </div>
 
-                <div class="form-group col-sm-12 col-md-6">
-                    <mat-form-field>
-                        <mat-label>Tipo Servicio</mat-label>
-                        <mat-select [(ngModel)]="cotizacion.idTipoServicio" name="idTipoServicio" (selectionChange)="buscarCosto()">
-                            <mat-option *ngFor="let tipo of tipoServicio" [value]="tipo.idTipoServicio">
-                                {{  tipo.nombre }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>        
 
                 <div class="form-group col-sm-12">
                     <label for="costo">Total:</label>
                     <input type="text" [(ngModel)]="total" name="costo" id="costo" class="form-control" readonly>
                 </div>
 
-                <!-- <div class="form-group col-sm-12">
+                <div class="form-group col-sm-12">
                     <label for="comentario">Comentario:</label>
-                    <input type="text" [(ngModel)]="cotizacion.comentario" name="comentario" id="comentario" class="form-control">
-                </div> -->
+                    <textarea [(ngModel)]="cotizacion.comentario" name="comentario" id="comentario" class="form-control" placeholder="Escribe un comentario para que te sea mas facil identificar esta cotización despues." required></textarea>
+                </div>
 
             </div>
         </div>
 
         <div mat-dialog-actions class="col-sm-12">
-            <div class="col-sm-12" style="margin-bottom: 10px;">
-                <button class="btn botonCafe waves-effect" (click)="cerrarModal()" style="width: 100%;">Cancelar</button>
+            <div class="col-sm-12">
+                <button class="btn botonAzul btn-block text-white" [disabled]="desactivado "(click)="agregar()">Nueva Fila</button>
+            </div>
+
+            <div class="col-sm-12">
+                <button class="btn botonCafe text-white" (click)="cerrarModal()" style="width: 100%;">Cancelar</button>
             </div>
 
             <div class="col-sm-12">

@@ -33,6 +33,6 @@ export class ProspectosService {
   }
 
   delete(id){
-    return this.http.delete(environment.Url_Service + 'Prospectos/'+id);
+    return this.http.put(environment.Url_Service + 'Prospectos/activo/'+id, null);
   }
 }

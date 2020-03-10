@@ -54,7 +54,7 @@ export class ValidarProspectoComponent implements OnInit {
       let movimiento = {
         idUsuario: sessionStorage.id,
         tipo: 2,
-        descripcion: `A el prospecto: ${this.data.nombre}, se le validaron los siguientes documentos: ${aux}`
+        descripcion: `A el prospecto: "${this.data.nombre}", se le validaron los siguientes documentos: "${aux}"`
       }
       this.movimientosService.post(movimiento).subscribe(() => {
         this.dialogRef.close();

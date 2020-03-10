@@ -67,7 +67,7 @@ export class CotizacionComponent implements OnInit {
   // Abrir formulario en modal
   async nuevo(){
     const dialogRef = this.dialog.open(AddCotizacionComponent, {
-      width: '700px'
+      width: '800px'
     });
 
     await dialogRef.afterClosed().subscribe(result => {    

@@ -9,6 +9,7 @@ import { AddProspectoComponent } from './modals/add-prospecto/add-prospecto.comp
 import { ValidarProspectoComponent } from './modals/validar-prospecto/validar-prospecto.component';
 import { environment } from 'src/environments/environment';
 import { EditProspectComponent } from './modals/edit-prospect/edit-prospect.component';
+import { MovimientosService } from 'src/app/services/movimientos.service';
 
 @Component({
   selector: 'app-prospectos',
@@ -30,7 +31,8 @@ export class ProspectosComponent implements OnInit {
   constructor(
     public prospectosServices: ProspectosService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private movimientosService: MovimientosService
     ) {this.validarUsuario() }
 
 
@@ -85,7 +87,7 @@ export class ProspectosComponent implements OnInit {
       width: '700px'
     });
 
-    await dialogRef.afterClosed().subscribe(result => {    
+    await dialogRef.afterClosed().subscribe(() => {    
       this.conectarServidor();
     }); 
   }
@@ -155,6 +157,57 @@ export class ProspectosComponent implements OnInit {
       text: 'El prospecto ya tiene validado los siguientes documentos: Acta Constitutiva, Contrato Original UVA / OCP, RFC, y Carta Poder',
       icon: 'success'
     });
+  }
+
+  delete(data){
+    if(this.desactivado)
+      return false;
+
+    Swal.fire({
+      title: '¿Estas seguro que quieres borrar el prospecto?',
+      text: 'Esto significa que se borraran todos los servicios relacionados con el prospecto',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Borrar',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.preloaderActivo = true;
+        this.desactivado = true;
+
+        this.prospectosServices.delete(data.id).toPromise()
+        .then(db => {
+          let movimiento = {
+            idUsuario: sessionStorage.id,
+            tipo: 3,
+            descripcion: `Se borro el prospecto: "${data.nombre}", que era de la empresa: "${data.empresa}" con el telefono: "${data.telefono}" y el correo: "${data.correo}"`
+          }
+          this.movimientosService.post(movimiento).subscribe(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Se borro el prospecto'
+            })
+            this.conectarServidor();
+          })
+        }).catch ( e => {
+          if(!e.error.mensaje)
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'El servidor no esta conectado'
+            })
+          else 
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: e.error.mensaje
+            })
+        }).finally(() => {
+          this.preloaderActivo = false;
+          this.desactivado = false;
+        })
+      }
+    })
   }
 
 }

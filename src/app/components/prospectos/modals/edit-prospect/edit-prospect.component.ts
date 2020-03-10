@@ -91,7 +91,7 @@ export class EditProspectComponent implements OnInit {
         let movimiento = {
           idUsuario: sessionStorage.id,
           tipo: 2,
-          descripcion: `Se modifico el prospecto de: ${aux}, ${this.data.nombre}, ${this.data.telefono}, ${this.data.correo}, ${this.data.direccion} A: ${aux2}, ${this.prospecto.nombre}, ${this.prospecto.telefono}, ${this.prospecto.correo}, ${this.prospecto.direccion}`
+          descripcion: `Se modifico el prospecto de la empresa: "${aux}", con nombre: "${this.data.nombre}", telefono: "${this.data.telefono}", correo: "${this.data.correo}" y dirección: "${this.data.direccion}" A la empresa: "${aux2}", nombre: "${this.prospecto.nombre}", telefono: "${this.prospecto.telefono}", correo: "${this.prospecto.correo}" y dirección: "${this.prospecto.direccion}"`
         }
         this.movimientosService.post(movimiento).subscribe(() => {
           Swal.fire({ 
