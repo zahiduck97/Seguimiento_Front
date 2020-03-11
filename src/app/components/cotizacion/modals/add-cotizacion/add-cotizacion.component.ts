@@ -157,7 +157,21 @@ export class AddCotizacionComponent implements OnInit {
     console.log(this.normasArray.controls, this.serviciosArray.controls);
     console.log(this.cotizacion);
     Swal.fire({
-      
+      title: '¿Estas seguro que ya quieres guardar la cotización?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
     })
     // await this.cotizacionesService.post(this.cotizacion)
     //   .subscribe(res => {
