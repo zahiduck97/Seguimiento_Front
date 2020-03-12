@@ -78,6 +78,7 @@ import { CotizacionComponent } from './components/cotizacion/cotizacion.componen
 import { AddCotizacionComponent } from './components/cotizacion/modals/add-cotizacion/add-cotizacion.component';
 import { EditUsuarioComponent } from './components/usuarios/modals/edit-usuario/edit-usuario.component';
 import { EditPasswordComponent } from './components/usuarios/modals/edit-password/edit-password.component';
+import { InformacionCotizacionComponent } from './components/cotizacion/modals/informacion-cotizacion/informacion-cotizacion.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -114,7 +115,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     CotizacionComponent,
     AddCotizacionComponent,
     EditUsuarioComponent,
-    EditPasswordComponent
+    EditPasswordComponent,
+    InformacionCotizacionComponent
   ],
   imports: [
     BrowserModule,
@@ -168,7 +170,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
   entryComponents: [
     AddEmpresaComponent, EditEmpresaComponent, AddProspectoComponent,
     ValidarProspectoComponent, AddNormaComponent, AddTipoServicioComponent, AddCostoComponent, AddServicioComponent, ValidarUnoComponent, ValidarDosComponent,
-    ValidarTresComponent, AddUsuarioComponent, EditProspectComponent, EditNormaComponent, EditTipoServicioComponent, EditCostoComponent, AddCotizacionComponent, EditUsuarioComponent, EditPasswordComponent
+    ValidarTresComponent, AddUsuarioComponent, EditProspectComponent, EditNormaComponent, EditTipoServicioComponent, EditCostoComponent, AddCotizacionComponent, EditUsuarioComponent, EditPasswordComponent, InformacionCotizacionComponent
   ],
   bootstrap: [AppComponent]
 })

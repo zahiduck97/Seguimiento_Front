@@ -5,6 +5,7 @@ import { CotizacionesService } from 'src/app/services/cotizaciones.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AddCotizacionComponent } from './modals/add-cotizacion/add-cotizacion.component';
+import {InformacionCotizacionComponent} from './modals/informacion-cotizacion/informacion-cotizacion.component';
 
 @Component({
   selector: 'app-cotizacion',
@@ -12,14 +13,12 @@ import { AddCotizacionComponent } from './modals/add-cotizacion/add-cotizacion.c
   styleUrls: ['./cotizacion.component.css']
 })
 export class CotizacionComponent implements OnInit {
-
-  
   public cotizaciones : any = [];
   public preloaderActivo = false;
   public desactivado = false;
 
   // Table
-  public displayedColumns: string[] = ['prospecto', 'fecha', 'codificacion', 'tipoServicio', 'costo', 'total', 'acciones'];
+  public displayedColumns: string[] = ['prospecto', 'fecha', 'comentario', 'total', 'acciones'];
   public dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -45,6 +44,7 @@ export class CotizacionComponent implements OnInit {
       .subscribe(
         db => {
           this.cotizaciones = db;
+          this.cotizaciones.filter(data => data.fecha = data.fecha.substring(0, 10));
           console.log(this.cotizaciones);
           this.preloaderActivo = false;
           this.desactivado = false;
@@ -65,14 +65,14 @@ export class CotizacionComponent implements OnInit {
   }
 
   // Abrir formulario en modal
-  async nuevo(){
+  async nuevo() {
     const dialogRef = this.dialog.open(AddCotizacionComponent, {
       width: '800px'
     });
 
-    await dialogRef.afterClosed().subscribe(result => {    
+    await dialogRef.afterClosed().subscribe(() => {
       this.conectarServidor();
-    }); 
+    });
   }
 
   // Filtering
@@ -123,5 +123,17 @@ export class CotizacionComponent implements OnInit {
         });
       }
     }
+  }
+
+  // ver info de la cotizacion
+  async informacion(data) {
+    const dialogRef = this.dialog.open(InformacionCotizacionComponent, {
+      width: '600px',
+      data: data
+    });
+
+    await dialogRef.afterClosed().subscribe(() => {
+      this.conectarServidor();
+    });
   }
 }

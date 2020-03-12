@@ -12,12 +12,12 @@ export class CotizacionesService {
   ) { }
 
   // Get
-  get(){
+  get() {
     return this.http.get(environment.Url_Service + 'Cotizaciones');
   }
 
   // Get
-  post(data){
+  post(data) {
     return this.http.post(environment.Url_Service + 'Cotizaciones', data);
   }
 }

@@ -24,7 +24,7 @@ export class EditEmpresaComponent implements OnInit {
   ) {  }
 
   // On init
-  ngOnInit(){
+  ngOnInit() {
     this.oldEmpresa = this.data.empresa.nombre
     console.log(this.oldEmpresa)
   }

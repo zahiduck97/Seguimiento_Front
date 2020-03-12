@@ -8,25 +8,25 @@ import { environment } from 'src/environments/environment';
 export class CostosService {
   constructor(private http: HttpClient) { }
 
-  get(){
+  get() {
     return this.http.get(environment.Url_Service + 'Costos/');
   }
 
-  post(data){
+  post(data) {
     return this.http.post(environment.Url_Service + 'Costos/', data);
   }
 
-  editar(data, id){
+  editar(data, id) {
     return this.http.put(environment.Url_Service + 'Costos/' + id, data);
   }
 
   // Get 1
-  get1Costo(id){
+  get1Costo(id) {
     return this.http.get(environment.Url_Service + 'Costos/' + id);
   }
 
-  // Delete 
-  delete(id){
+  // Delete
+  delete(id) {
     return this.http.put(environment.Url_Service + 'Costos/activo/' + id, null);
   }
 
