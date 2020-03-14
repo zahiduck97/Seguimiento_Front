@@ -128,7 +128,7 @@ export class CotizacionComponent implements OnInit {
   // ver info de la cotizacion
   async informacion(data) {
     const dialogRef = this.dialog.open(InformacionCotizacionComponent, {
-      width: '600px',
+      height: '1000px',
       data: data
     });
 

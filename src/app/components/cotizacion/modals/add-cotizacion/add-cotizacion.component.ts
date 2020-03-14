@@ -17,9 +17,9 @@ export class AddCotizacionComponent implements OnInit {
 
   public cotizacion = {
     idProspecto: 0,
-    idCosto: [],
+    idCosto: null,
     comentario: '',
-    costos: [],
+    costos: null,
     total: 0,
     codificacion: [],
     nombre: []
