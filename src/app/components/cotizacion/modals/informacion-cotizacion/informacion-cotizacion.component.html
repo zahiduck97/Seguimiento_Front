@@ -37,44 +37,33 @@
         </thead>
 
         <tbody>
+          <tr *ngFor="let costo of costos" class="col-sm-12">
+            <td >
+              {{ costo.codificacion }}
+            </td>
 
+              <td >
+              {{ costo.nombre }}
+            </td>
+
+              <td>
+              {{ costo.costo }}
+            </td>
+          </tr>
+          <tr>
+            <td> <b>Total:</b> </td>
+            <td></td>
+            <td>{{ data.total }}</td>
+          </tr>
         </tbody>
       </table>
-
-      <div *ngFor="let costo of costos" class="col-sm-12">
-
-
-          <span class="col-md-4">
-            {{ costo.codificacion }}
-          </span>
-
-          <span class="col-md-4">
-            {{ costo.nombre }}
-          </span>
-
-          <span class="col-md-4">
-            {{ costo.costo }}
-          </span>
-
-      </div>
-
-      <!--<div class="col-md-4">-->
-      <!--</div>-->
-      <!--<div class="col-md-4">-->
-      <!--</div>-->
-      <!--<div class="col-md-4">-->
-        <!--<b>Total:</b> {{ data.total }}-->
-      <!--</div>-->
-
-
-
     </div>
   </div>
 
   <div mat-dialog-actions class="col-sm-12">
 
     <div class="col-sm-12">
-      <button class="btn botonCafe text-white" (click)="cerrarModal()" style="width: 100%;">Cancelar</button>
+      <button class="btn botonCafe text-white" (click)="cerrarModal()" style="width: 100%;">Cerrar</button>
     </div>
 
     <div class="col-sm-12">
