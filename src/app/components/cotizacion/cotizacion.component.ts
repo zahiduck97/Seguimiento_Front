@@ -129,11 +129,32 @@ export class CotizacionComponent implements OnInit {
   async informacion(data) {
     const dialogRef = this.dialog.open(InformacionCotizacionComponent, {
       width: '800px',
-      data: data
+      data: data,
+      disableClose: true,
     });
 
     await dialogRef.afterClosed().subscribe(() => {
       this.conectarServidor();
     });
+  }
+
+  borrar(data) {
+    Swal.fire({
+      title: '¿Estas seguro que quieres borrar esta cotización?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   }
 }

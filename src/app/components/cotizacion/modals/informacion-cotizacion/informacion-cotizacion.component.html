@@ -1,15 +1,17 @@
 <div class="row">
 
+  <!--<mat-spinner style="margin:0 auto;"-->
+                       <!--mode="indeterminate"></mat-spinner>-->
+  <mat-progress-bar mode="indeterminate" *ngIf="preloaderActivo"></mat-progress-bar>
+
   <h3 class="colorVerde col-md-12" style="text-align: center;">Información de la cotización</h3>
 
-  <div class="divider"></div>
-
-  <div style="padding: 5px 0px;">
-    <mat-progress-bar mode="indeterminate" *ngIf="preloaderActivo"></mat-progress-bar>
-  </div>
-
   <div mat-dialog-content class="col-sm-12">
-    <div class="row">
+    <div class="row" id="pdfTable" #pdfTable>
+
+      <div class="col-sm-12 col-md-6">
+        <b>Fecha:</b> {{ data.fecha }}
+      </div>
 
       <div class="col-sm-12 col-md-6">
         <b>Empresa:</b> {{ prospecto.empresa }}
@@ -47,13 +49,13 @@
             </td>
 
               <td>
-              {{ costo.costo }}
+              ${{ costo.costo }}
             </td>
           </tr>
           <tr>
-            <td> <b>Total:</b> </td>
+            <td > <b>Total:</b> </td >
             <td></td>
-            <td>{{ data.total }}</td>
+            <td>${{ data.total }}</td>
           </tr>
         </tbody>
       </table>
@@ -63,12 +65,13 @@
   <div mat-dialog-actions class="col-sm-12">
 
     <div class="col-sm-12">
-      <button class="btn botonCafe text-white" (click)="cerrarModal()" style="width: 100%;">Cerrar</button>
+      <button class="btn botonCafe text-white" (click)="cerrarModal()" [disabled]="desactivado"  style="width: 100%;">Cerrar</button>
     </div>
 
     <div class="col-sm-12">
-      <!--<input class="btn botonVerde" type="submit" style="width: 100%;" value="Guardar" [disabled]="!formAddEmpresa.form.valid || desactivado" (click)="guardar()">-->
+      <input class="btn botonVerde" type="submit" style="width: 100%;" value="Imprimir PDF" (click)="imprimirPdf()">
     </div>
   </div>
 
 </div>
+
