@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AddCotizacionComponent } from './modals/add-cotizacion/add-cotizacion.component';
 import {InformacionCotizacionComponent} from './modals/informacion-cotizacion/informacion-cotizacion.component';
+import {MovimientosService} from '../../services/movimientos.service';
+import {EditCotizacionComponent} from './modals/edit-cotizacion/edit-cotizacion.component';
 
 @Component({
   selector: 'app-cotizacion',
@@ -17,6 +19,7 @@ export class CotizacionComponent implements OnInit {
   public preloaderActivo = false;
   public desactivado = false;
 
+
   // Table
   public displayedColumns: string[] = ['prospecto', 'fecha', 'comentario', 'total', 'acciones'];
   public dataSource = new MatTableDataSource();
@@ -26,7 +29,8 @@ export class CotizacionComponent implements OnInit {
   constructor(
     public cotizacionService: CotizacionesService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public movimientosService: MovimientosService
     ) { this.validarUsuario(); }
 
 
@@ -86,26 +90,24 @@ export class CotizacionComponent implements OnInit {
 
 
   // Put a Norm
-  // async editEmpresa(empresa){
-  //   if(this.desactivado)
-  //     return false;
+  async edit(data) {
+    if (this.desactivado)
+      return false;
 
-  //   const dialogRef = this.dialog.open(EditEmpresaComponent, {
-  //     data: {
-  //       empresa
-  //     },
-  //     width: '600px'
-  //    });
+    const dialogRef = this.dialog.open(EditCotizacionComponent, {
+      data: data,
+      width: '600px'
+     });
 
-  //   await dialogRef.afterClosed().subscribe(result => {
-  //     this.conectarServidor();
-  //   })
-  // }
+    await dialogRef.afterClosed().subscribe(() => {
+      this.conectarServidor();
+    });
+  }
 
   // Tine prmisos o esta autenticado
-  validarUsuario(){
-    let id = sessionStorage.id;
-    if(!id){
+  validarUsuario() {
+    const id = sessionStorage.id;
+    if (!id) {
       this.router.navigate(['/']);
       Swal.fire({
         title: 'Error',
@@ -114,7 +116,7 @@ export class CotizacionComponent implements OnInit {
       });
     } else {
       let rol = parseInt(sessionStorage.rol);
-      if(environment.permisos_Usuarios[rol].cotizacion == false){
+      if (environment.permisos_Usuarios[rol].cotizacion === false) {
         this.router.navigate(['/index']);
         Swal.fire({
           title: 'Error',
@@ -138,23 +140,55 @@ export class CotizacionComponent implements OnInit {
     });
   }
 
-  borrar(data) {
+  async borrar(data) {
+    if (this.desactivado)
+      return false;
+
     Swal.fire({
-      title: '¿Estas seguro que quieres borrar esta cotización?',
-      text: "",
+      title: '¿Estas seguro que quieres borrar la cotización?',
+      text: 'Esto significa que los servicios a los que se les haya asignado esta cotización, ya no la tendran.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Si, Borrar',
+      cancelButtonText: 'No, Cancelar'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        this.preloaderActivo = true;
+        this.desactivado = true;
+
+        this.cotizacionService.putActivo(0, data.id).toPromise()
+          .then(() => {
+            let movimiento = {
+              idUsuario: sessionStorage.id,
+              tipo: 3,
+              descripcion: `Se borro la cotización para: "${data.nombre}", con el comentario:
+              "${data.comentario}", que se realizó en la fecha: "${data.fecha}", y era un total de: "$${data.total}"`
+            };
+            this.movimientosService.post(movimiento).subscribe(() => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Se borro la cotización'
+              })
+              this.conectarServidor();
+            });
+          }).catch ( e => {
+          if (!e.error.mensaje)
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'El servidor no esta conectado'
+            })
+          else
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: e.error.mensaje
+            });
+        }).finally(() => {
+          this.preloaderActivo = false;
+          this.desactivado = false;
+        });
       }
-    })
+    });
   }
 }

@@ -126,7 +126,7 @@ export class EmpresasComponent implements OnInit {
               title: 'Error',
               text: 'El servidor no esta conectado'
             })
-          else 
+          else
             Swal.fire({
               icon: 'error',
               title: 'Error',
