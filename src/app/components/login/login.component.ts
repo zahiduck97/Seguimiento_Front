@@ -18,13 +18,13 @@ export class LoginComponent  {
   public preloaderActivo = false;
   public desactivado = false;
 
-  constructor(private loginServices: LoginService, private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService) { }
 
   async login() {
     console.log(this.usuario)
     this.preloaderActivo = true;
     this.desactivado = true;
-    await this.loginServices.validarUsuario(this.usuario).toPromise()
+    await this.loginService.validarUsuario(this.usuario).toPromise()
       .then( res => {
           sessionStorage.setItem('id', res.id.toString());
           sessionStorage.setItem('rol', res.rol.toString());

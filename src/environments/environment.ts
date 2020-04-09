@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  Url_Service: 'http://localhost:3000/api/',
+  // Url_Service: 'http://localhost:3000/api/',
+  Url_Service: 'api/',
   permisos_Usuarios:[
 
     // 0

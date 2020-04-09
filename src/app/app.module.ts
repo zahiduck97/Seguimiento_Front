@@ -81,7 +81,7 @@ import { EditPasswordComponent } from './components/usuarios/modals/edit-passwor
 import { InformacionCotizacionComponent } from './components/cotizacion/modals/informacion-cotizacion/informacion-cotizacion.component';
 import { EditCotizacionComponent } from './components/cotizacion/modals/edit-cotizacion/edit-cotizacion.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: '', options: {} };
 
 @NgModule({
   declarations: [
