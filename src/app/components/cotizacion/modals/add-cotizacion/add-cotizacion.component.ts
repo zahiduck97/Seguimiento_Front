@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { CotizacionesService } from 'src/app/services/cotizaciones.service';
 import { MatDialogRef } from '@angular/material';
 import { CostosService } from 'src/app/services/costos.service';
@@ -23,14 +23,14 @@ export class AddCotizacionComponent implements OnInit {
     total: 0,
     codificacion: [],
     nombre: []
-  }
+  };
 
   public preloaderActivo = false;
   public desactivado = false;
   public prospectos: any = [];
   public costos: any = [];
   public tipoServicio: any = [];
-  public normas: any = []
+  public normas: any = [];
   public total = 0;
 
   public normasArray = new FormArray([]);
@@ -51,7 +51,7 @@ export class AddCotizacionComponent implements OnInit {
     this.getNormas();
   }
 
-  getProspectos(){
+  getProspectos() {
     this.prospectosService.get()
     .subscribe(
       data => {
@@ -62,16 +62,16 @@ export class AddCotizacionComponent implements OnInit {
       },
       err => {
         console.log(err);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: err
-          });
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err
+        });
 
         this.preloaderActivo = false;
         this.desactivado = false;
       }
-    )
+    );
   }
 
   getCostos() {
@@ -85,11 +85,11 @@ export class AddCotizacionComponent implements OnInit {
       },
       err => {
         console.log(err);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: err
-          });
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err
+        });
 
         this.preloaderActivo = false;
         this.desactivado = false;
@@ -108,11 +108,11 @@ export class AddCotizacionComponent implements OnInit {
       },
       err => {
         console.log(err);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: err
-          });
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err
+        });
 
         this.preloaderActivo = false;
         this.desactivado = false;
@@ -121,10 +121,10 @@ export class AddCotizacionComponent implements OnInit {
   }
 
   buscarTipoServicio(i: number) {
-    var aux = this.normasArray.controls[i].value
-    this.tipoServicio[i] = this.costos.filter(function (data) {
+    const aux = this.normasArray.controls[i].value;
+    this.tipoServicio[i] = this.costos.filter((data) => {
       return data.idNorma === aux;
-    })
+    });
 
     if (this.tipoServicio[i].length === 0) {
       this.total = 0;
@@ -133,15 +133,15 @@ export class AddCotizacionComponent implements OnInit {
   }
 
   buscarCosto(i: number) {
-    var norma = this.normasArray.controls[i].value
-    var tipo = this.serviciosArray.controls[i].value
-    let aux = this.costos.filter(function (data) {
+    const norma = this.normasArray.controls[i].value;
+    const tipo = this.serviciosArray.controls[i].value;
+    const aux = this.costos.filter((data) => {
       return data.idNorma === norma && data.idTipoServicio === tipo;
-    })
+    });
     this.cotizacion.idCosto[i] = aux[0].id;
     this.cotizacion.costos[i] = aux[0].costo;
     this.cotizacion.codificacion[i] = aux[0].codificacion;
-    this.cotizacion.nombre[i] = aux[0].nombre
+    this.cotizacion.nombre[i] = aux[0].nombre;
     this.sumaCosto();
     console.log(this.cotizacion);
   }
@@ -149,7 +149,7 @@ export class AddCotizacionComponent implements OnInit {
   sumaCosto() {
     this.total = 0;
     for (let i = 0; i < this.cotizacion.costos.length; i++) {
-      this.total += this.cotizacion.costos[i];
+      this.total += i;
     }
   }
 
@@ -173,8 +173,7 @@ export class AddCotizacionComponent implements OnInit {
       if (result.value) {
         this.preloaderActivo = true;
         this.desactivado = true;
-        this.cotizacion.idCosto = this.cotizacion.idCosto.toString();
-        this.cotizacion.costos = this.cotizacion.costos.toString();
+        this.cotizacion.idCosto[0] = this.cotizacion.idCosto.toString();
 
         // Para obtener el nombre del prospecto
         const prospecto = this.prospectos.filter(res => res.id === this.cotizacion.idProspecto);
@@ -182,38 +181,40 @@ export class AddCotizacionComponent implements OnInit {
         // Para obtener la codificacion y tipo de servicio
         let normas = '';
         for (let i = 0; i < this.cotizacion.codificacion.length; i++) {
-          normas += `"${this.cotizacion.nombre[i]}" de la norma: "${this.cotizacion.codificacion[i]}", `
+          normas += `"${this.cotizacion.nombre[i]}" de la norma: "${this.cotizacion.codificacion[i]}", `;
         }
         this.cotizacionesService.post(this.cotizacion)
           .subscribe({next: () => {
-          let movimiento = {
+          const movimiento = {
             idUsuario: sessionStorage.id,
             tipo: 1,
-            descripcion: `Se creo una cotizacion para: "${prospecto[0].nombre}" con los siguientes datos: ${normas} y fue un total de: "$${this.total}"`
+            descripcion: `Se creo una cotizacion para: "${prospecto[0].nombre}"
+            con los siguientes datos: ${normas} y fue un total de: "$${this.total}"`
           };
           this.movimientosService.post(movimiento).subscribe(() => {
             Swal.fire({
               icon: 'success',
               title: 'Se inserto la cotizacion'
-            })
+            });
             this.dialogRef.close('ok');
           });
         },
           error: e => {
             this.preloaderActivo = false;
             this.desactivado = false;
-            if (!e.error.mensaje)
+            if (!e.error.mensaje) {
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: 'El servidor no esta conectado'
               });
-            else
+            } else {
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: e.error.mensaje
               });
+            }
           },
             complete: () => {
               this.preloaderActivo = false;
@@ -224,7 +225,7 @@ export class AddCotizacionComponent implements OnInit {
       }
     });
   }
-  
+
   quitar(index: number) {
     this.normasArray.removeAt(index);
     this.serviciosArray.removeAt(index);
@@ -241,6 +242,6 @@ export class AddCotizacionComponent implements OnInit {
   agregar() {
     this.normasArray.push(new FormControl(''));
     this.serviciosArray.push(new FormControl(''));
-    this.normas[this.normas.length] = this.normas[this.normas.length-1]
+    this.normas[this.normas.length] = this.normas[this.normas.length - 1];
   }
 }

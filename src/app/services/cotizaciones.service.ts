@@ -25,4 +25,9 @@ export class CotizacionesService {
   putActivo(estado: number, id: number) {
     return this.http.put(environment.Url_Service + 'Cotizaciones/activo/' + `${id}/${estado}`, null);
   }
+
+  // Put
+  put(data, id) {
+    return this.http.put(environment.Url_Service + 'Cotizaciones/' + id, data);
+  }
 }
