@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CostosService} from '../../../../services/costos.service';
 import {ProspectosService} from '../../../../services/prospectos.service';
 import jsPDF from 'jspdf';
+import Swal from 'sweetalert2';
+import {CotizacionesService} from '../../../../services/cotizaciones.service';
 
 @Component({
   selector: 'app-informacion-cotizacion',
@@ -20,7 +22,8 @@ export class InformacionCotizacionComponent implements OnInit {
     public dialogRef: MatDialogRef<InformacionCotizacionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private costosService: CostosService,
-    private prospectosService: ProspectosService
+    private prospectosService: ProspectosService,
+    private cotizacionService: CotizacionesService
   ) { }
 
   ngOnInit() {
@@ -34,7 +37,7 @@ export class InformacionCotizacionComponent implements OnInit {
       this.costos = data;
     },
     complete: () => {
-      let aux = [];
+      const aux = [];
       for (let i = 0; i < this.costos.length; i++) {
         for (let j = 0; j < this.data.idCosto.length; j++) {
           if (this.costos[i].id === parseInt(this.data.idCosto[j], 10)) {
@@ -51,26 +54,40 @@ export class InformacionCotizacionComponent implements OnInit {
     if (this.preloaderActivo) {
       return false;
     }
-    this.preloaderActivo = true;
-    setTimeout(() => {
-      const doc = new jsPDF();
 
-      const specialElementHandlers = {
-        '#editor': function (element, renderer) {
-          return true;
-        }
-      };
+    Swal.fire({
+      title: '¿Estás seguro que quieres imprimir la cotización?',
+      text: 'Si lo haces, ya no podrás editar la cotización otra vez',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borrar!',
+      cancelButtonText: 'No, aun no'
+    }).then((result) => {
+      if (result.value) {
+        this.preloaderActivo = true;
 
-      const pdfTable = this.pdfTable.nativeElement;
+        const doc = new jsPDF();
 
-      doc.fromHTML(pdfTable.innerHTML, 15, 15, {
-        width: 190,
-        'elementHandlers': specialElementHandlers
-      });
+        const specialElementHandlers = {
+          '#editor': function (element, renderer) {
+            return true;
+          }
+        };
 
-      doc.save('tableToPdf.pdf');
-      this.preloaderActivo = false;
-    }, 3000);
+        const pdfTable = this.pdfTable.nativeElement;
+
+        doc.fromHTML(pdfTable.innerHTML, 15, 15, {
+          width: 190,
+          'elementHandlers': specialElementHandlers
+        });
+
+        doc.save('cotizacion.pdf');
+        this.cotizacionService.putEnviado(1, this.data.id).subscribe(() => {});
+        this.preloaderActivo = false;
+      }
+    });
   }
 
   // Close the modal

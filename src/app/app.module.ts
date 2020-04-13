@@ -80,8 +80,9 @@ import { EditUsuarioComponent } from './components/usuarios/modals/edit-usuario/
 import { EditPasswordComponent } from './components/usuarios/modals/edit-password/edit-password.component';
 import { InformacionCotizacionComponent } from './components/cotizacion/modals/informacion-cotizacion/informacion-cotizacion.component';
 import { EditCotizacionComponent } from './components/cotizacion/modals/edit-cotizacion/edit-cotizacion.component';
+import {environment} from '../environments/environment';
 
-const config: SocketIoConfig = { url: '', options: {} };
+const config: SocketIoConfig = { url: environment.Url_Sockets, options: {} };
 
 @NgModule({
   declarations: [

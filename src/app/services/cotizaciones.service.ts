@@ -30,4 +30,9 @@ export class CotizacionesService {
   put(data, id) {
     return this.http.put(environment.Url_Service + 'Cotizaciones/' + id, data);
   }
+
+  // Actualizar el enviado
+  putEnviado(estado: number, id: number) {
+    return this.http.put(environment.Url_Service + 'Cotizaciones/enviado/' + id + '/' + estado, null );
+  }
 }

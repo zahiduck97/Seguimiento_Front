@@ -140,55 +140,55 @@ export class CotizacionComponent implements OnInit {
     });
   }
 
-  async borrar(data) {
-    if (this.desactivado)
-      return false;
-
-    Swal.fire({
-      title: '¿Estas seguro que quieres borrar la cotización?',
-      text: 'Esto significa que los servicios a los que se les haya asignado esta cotización, ya no la tendran.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Si, Borrar',
-      cancelButtonText: 'No, Cancelar'
-    }).then((result) => {
-      if (result.value) {
-        this.preloaderActivo = true;
-        this.desactivado = true;
-
-        this.cotizacionService.putActivo(0, data.id).toPromise()
-          .then(() => {
-            let movimiento = {
-              idUsuario: sessionStorage.id,
-              tipo: 3,
-              descripcion: `Se borro la cotización para: "${data.nombre}", con el comentario:
-              "${data.comentario}", que se realizó en la fecha: "${data.fecha}", y era un total de: "$${data.total}"`
-            };
-            this.movimientosService.post(movimiento).subscribe(() => {
-              Swal.fire({
-                icon: 'success',
-                title: 'Se borro la cotización'
-              })
-              this.conectarServidor();
-            });
-          }).catch ( e => {
-          if (!e.error.mensaje)
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'El servidor no esta conectado'
-            })
-          else
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: e.error.mensaje
-            });
-        }).finally(() => {
-          this.preloaderActivo = false;
-          this.desactivado = false;
-        });
-      }
-    });
-  }
+  // async borrar(data) {
+  //   if (this.desactivado)
+  //     return false;
+  //
+  //   Swal.fire({
+  //     title: '¿Estas seguro que quieres borrar la cotización?',
+  //     text: 'Esto significa que los servicios a los que se les haya asignado esta cotización, ya no la tendran.',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Si, Borrar',
+  //     cancelButtonText: 'No, Cancelar'
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       this.preloaderActivo = true;
+  //       this.desactivado = true;
+  //
+  //       this.cotizacionService.putActivo(0, data.id).toPromise()
+  //         .then(() => {
+  //           let movimiento = {
+  //             idUsuario: sessionStorage.id,
+  //             tipo: 3,
+  //             descripcion: `Se borro la cotización para: "${data.nombre}", con el comentario:
+  //             "${data.comentario}", que se realizó en la fecha: "${data.fecha}", y era un total de: "$${data.total}"`
+  //           };
+  //           this.movimientosService.post(movimiento).subscribe(() => {
+  //             Swal.fire({
+  //               icon: 'success',
+  //               title: 'Se borro la cotización'
+  //             })
+  //             this.conectarServidor();
+  //           });
+  //         }).catch ( e => {
+  //         if (!e.error.mensaje)
+  //           Swal.fire({
+  //             icon: 'error',
+  //             title: 'Error',
+  //             text: 'El servidor no esta conectado'
+  //           })
+  //         else
+  //           Swal.fire({
+  //             icon: 'error',
+  //             title: 'Error',
+  //             text: e.error.mensaje
+  //           });
+  //       }).finally(() => {
+  //         this.preloaderActivo = false;
+  //         this.desactivado = false;
+  //       });
+  //     }
+  //   });
+  // }
 }
