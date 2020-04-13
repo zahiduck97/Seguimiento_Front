@@ -47,7 +47,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { AddEmpresaComponent } from './components/empresas/modals/add-empresa/add-empresa.component';
-import { EditEmpresaComponent } from './components/empresas/modals/edit-empresa/edit-empresa.component'; 
+import { EditEmpresaComponent } from './components/empresas/modals/edit-empresa/edit-empresa.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddProspectoComponent } from './components/prospectos/modals/add-prospecto/add-prospecto.component';
 import { ValidarProspectoComponent } from './components/prospectos/modals/validar-prospecto/validar-prospecto.component';
@@ -149,6 +149,7 @@ const config: SocketIoConfig = { url: environment.Url_Sockets, options: {} };
     MatGridListModule,
     MatIconModule,
     MatInputModule,
+    MatFormFieldModule,
     MatListModule,
     MatMenuModule,
     MatNativeDateModule,

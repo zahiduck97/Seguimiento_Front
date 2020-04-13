@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Swal from "sweetalert2";
 import { ProspectosService } from 'src/app/services/prospectos.service';
 import { MovimientosService } from 'src/app/services/movimientos.service';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-add-prospecto',
@@ -12,29 +13,30 @@ import { MovimientosService } from 'src/app/services/movimientos.service';
 })
 export class AddProspectoComponent implements OnInit {
 
-  
+
   public empresas;
-  public prospecto = {
-    idEmpresa : 0,
-    nombre: "",
-    telefono: "",
-    correo: "",
-    direccion: ""
-  }
+  prospecto = new FormGroup({
+    'nombre': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3)])),
+    'telefono': new FormControl('', Validators.compose([Validators.required,
+      Validators.pattern('[0-9]+'), Validators.minLength(10), Validators.maxLength(13)])),
+    'correo': new FormControl('', Validators.compose([Validators.required, Validators.email ])),
+    'direccion': new FormControl('', Validators.compose([Validators.required, Validators.minLength(10)])),
+  })
+
 
   public preloaderActivo = false;
   public desactivado = false;
-  
+
   constructor(
     public empresasService: EmpresasService,
     public dialogRef: MatDialogRef<AddProspectoComponent>,
     public prospectosService: ProspectosService,
     public movimientosService: MovimientosService
     ) { }
-  
+
 
   ngOnInit(){
-    this.getEmpresas();
+    // this.getEmpresas();
   }
 
 
@@ -50,18 +52,18 @@ export class AddProspectoComponent implements OnInit {
         },
         e => {
           if(!e.error.mensaje)
-          Swal.fire({ 
+          Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'El servidor no esta conectado'
           })
-        else 
-          Swal.fire({ 
+        else
+          Swal.fire({
             icon: 'error',
             title: 'Error',
             text: e.error.mensaje
           })
-        }, 
+        },
         () => {
           this.preloaderActivo = false;
           this.desactivado = false;
@@ -76,30 +78,30 @@ export class AddProspectoComponent implements OnInit {
         let movimiento = {
           idUsuario: sessionStorage.id,
           tipo: 1,
-          descripcion: `Se creo el prospecto:  ${this.prospecto.nombre}`
+        //  descripcion: `Se creo el prospecto:  ${this.prospecto.nombre}`
         }
         this.movimientosService.post(movimiento).subscribe(() => {
-          Swal.fire({ 
+          Swal.fire({
             icon: 'success',
             title: 'Se inserto el prospecto'
           })
           this.dialogRef.close('ok');
         })
-      }, 
+      },
       e => {
         if(!e.error.mensaje)
-          Swal.fire({ 
+          Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'El servidor no esta conectado'
           })
-        else 
-          Swal.fire({ 
+        else
+          Swal.fire({
             icon: 'error',
             title: 'Error',
             text: e.error.mensaje
           })
-      }, 
+      },
       () => {
         this.preloaderActivo = false;
         this.desactivado = false;

@@ -1,6 +1,6 @@
 <div  class="row">
-    <form class="col-md-12"  #formAddEmpresa="ngForm">
-        
+    <form class="col-md-12" [formGroup]="prospecto">
+
             <h3  class="colorVerde col-md-12" style="text-align: center;">Agregar Prospecto</h3>
 
             <div class="divider"></div>
@@ -10,48 +10,62 @@
                 <mat-progress-bar mode="indeterminate" *ngIf="preloaderActivo"></mat-progress-bar>
             </div>
 
-            <div mat-dialog-content class="col-sm-12">
+            <div mat-dialog-content class="px-5" >
                 <div class="row">
-                    <div class="form-group col-sm-12">
-                        <mat-form-field>
-                            <mat-label>Empresa</mat-label>
-                            <mat-select [(ngModel)]="prospecto.idEmpresa" name="empresa">
-                              <mat-option *ngFor="let empresa of empresas" [value]="empresa.id">
-                                {{empresa.nombre}}
-                              </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                    </div>
 
-                    <div class="form-group col-sm-12">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" #nombre="ngModel" [(ngModel)]="prospecto.nombre" name="nombre" id="nombre" required oninput="this.value = this.value.toUpperCase()" class="form-control">
-                    </div>
+                    <mat-form-field class=" col-sm-12">
+                      <input matInput type="text" formControlName="nombre" name="nombre" id="nombre" placeholder="Nombre"
+                             oninput="this.value = this.value.toUpperCase()" maxlength="50" class="form-control">
+                      <mat-error *ngIf="prospecto.controls['nombre'].hasError('required')">
+                        ¡El campo es requerido!
+                      </mat-error>
+                      <mat-error *ngIf="prospecto.controls['nombre'].hasError('minlength')">
+                        ¡Es un nombre muy corto!
+                      </mat-error>
+                    </mat-form-field>
 
-                    <div class="form-group col-sm-12">
-                        <label for="telefono">Telefono:</label>
-                        <input type="text" #telefono="ngModel" [(ngModel)]="prospecto.telefono" name="telefono" id="telefono" required  class="form-control">
-                    </div>
+                    <mat-form-field class="col-sm-12">
+                      <input matInput type="text" formControlName="telefono" name="telefono" id="telefono" placeholder="Telefono"  class="form-control" maxlength="13">
+                      <mat-error *ngIf="prospecto.controls['telefono'].hasError('required')">
+                        ¡El campo es requerido!
+                      </mat-error>
+                      <mat-error *ngIf="prospecto.controls['telefono'].hasError('pattern')">
+                        ¡Solo se aceptan números!
+                      </mat-error>
+                      <mat-error *ngIf="!prospecto.controls['telefono'].hasError('pattern') && prospecto.controls['telefono'].hasError('minlength')">
+                        ¡Mínimo son 10 números!
+                      </mat-error>
+                    </mat-form-field>
 
-                    <div class="form-group col-sm-12">
-                        <label for="correo">Correo:</label>
-                        <input type="email" #correo="ngModel" [(ngModel)]="prospecto.correo" name="correo" id="correo" required  class="form-control">
-                    </div>
+                    <mat-form-field class="col-sm-12">
+                      <input matInput type="text" formControlName="correo" name="correo" id="correo"  class="form-control" maxlength="50" placeholder="Correo">
+                      <mat-error *ngIf="prospecto.controls['correo'].hasError('required')">
+                        ¡El campo es requerido!
+                      </mat-error>
+                      <mat-error *ngIf="prospecto.controls['correo'].hasError('email')">
+                        ¡No es un correo valido!
+                      </mat-error>
+                    </mat-form-field>
 
-                    <div class="form-group col-sm-12">
-                        <label for="direccion">Direccion:</label>
-                        <input type="text" #direccion="ngModel" [(ngModel)]="prospecto.direccion" name="direccion" id="direccion" required oninput="this.value = this.value.toUpperCase()" class="form-control">
-                    </div>
+                    <mat-form-field class="col-sm-12">
+                      <input matInput type="text" formControlName="direccion" name="direccion" id="direccion" placeholder="Direccion" maxlength="100" oninput="this.value = this.value.toUpperCase()" class="form-control">
+                      <mat-error *ngIf="prospecto.controls['direccion'].hasError('required')">
+                        ¡El campo es requerido!
+                      </mat-error>
+                      <mat-error *ngIf="prospecto.controls['direccion'].hasError('minlength')">
+                        ¡La dirección es muy corta!
+                      </mat-error>
+                    </mat-form-field>
                 </div>
-            </div>  
-            
+            </div>
+
             <div mat-dialog-actions class="col-sm-12">
                 <div class="col-sm-12" style="margin-bottom: 10px;">
                     <button class="btn botonCafe waves-effect" (click)="cerrarModal()" style="width: 100%;">Cancelar</button>
                 </div>
-    
+
                 <div class="col-sm-12">
-                    <input class="btn botonVerde" type="submit" style="width: 100%;" value="Guardar" [disabled]="!formAddEmpresa.form.valid || desactivado" (click)="guardar()">
+                    <input class="btn botonVerde" type="submit" style="width: 100%;" value="Guardar" [disabled]=" prospecto.invalid || desactivado" (click)="guardar()">
                 </div>
             </div>
 
